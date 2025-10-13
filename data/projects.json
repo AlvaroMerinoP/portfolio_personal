@@ -1,0 +1,26 @@
+[
+  {
+    "id": "project1",
+    "title": "Smart Expense Tracker",
+    "description": "Cross-platform app for personal finance with smart insights.",
+    "image": "images/project1.jpg",
+    "demo": "#",
+    "repo": "#"
+  },
+  {
+    "id": "project2",
+    "title": "E-Commerce Prototype",
+    "description": "Scalable shopping app with fast product discovery.",
+    "image": "images/project2.jpg",
+    "demo": "#",
+    "repo": "#"
+  },
+  {
+    "id": "project3",
+    "title": "Design System",
+    "description": "Reusable component library and tokens used across products.",
+    "image": "images/project3.jpg",
+    "demo": "#",
+    "repo": "#"
+  }
+]

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Alvaro Merino — Portfolio</title>
+    <link rel="stylesheet" href="css/estilos.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <h1 class="logo">Alvaro Merino</h1>
+        <div class="header-right">
+          <nav class="nav" aria-label="Main navigation">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <div class="header-socials">
+            <a href="https://github.com/AlvaroMerinoP" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.73.5.75 5.48.75 11.76c0 4.9 3.17 9.07 7.57 10.54.55.1.75-.24.75-.53v-1.86c-3.08.67-3.73-1.49-3.73-1.49-.5-1.27-1.23-1.61-1.23-1.61-.99-.68.08-.66.08-.66 1.09.08 1.66 1.12 1.66 1.12.97 1.66 2.55 1.18 3.17.9.1-.7.38-1.18.69-1.45-2.46-.28-5.05-1.23-5.05-5.5 0-1.21.43-2.2 1.13-2.98-.12-.28-.49-1.4.11-2.91 0 0 .92-.3 3.02 1.13.87-.24 1.8-.36 2.72-.36.92 0 1.85.12 2.72.36 2.1-1.43 3.02-1.13 3.02-1.13.6 1.51.24 2.63.12 2.91.7.78 1.13 1.77 1.13 2.98 0 4.28-2.6 5.21-5.07 5.49.39.34.73 1.02.73 2.05v3.04c0 .29.2.63.76.53 4.4-1.47 7.57-5.64 7.57-10.54C23.25 5.48 18.27.5 12 .5z" fill="currentColor"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/alvaro-merino-puerta-12794b332/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer me">LinkedIn</a>
+          </div>
+            <button id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-inner">
+          <div class="hero-text">
+            <h2>Crafting elegant, front-to-back web & mobile experiences</h2>
+            <p class="lead">I build accessible, responsive applications using modern tools and pragmatic design. Currently focused on frontend engineering, performance, and delightful UX.</p>
+            <p class="hero-cta">
+              <a class="btn" href="#projects">See my work</a>
+              <a class="btn ghost" href="#contact">Get in touch</a>
+            </p>
+          </div>
+          <figure class="hero-image">
+            <!-- local placeholder — replace with your real photo at images/profile.jpg -->
+            <img src="images/profile.jpg" alt="Profile photo" />
+          </figure>
+        </div>
+      </section>
+
+      <section id="about" class="about container">
+        <h3>About</h3>
+        <p>I'm a developer who likes to turn ideas into delightful experiences. I enjoy clean interfaces, fast performance, and clear code. Skills: JavaScript, TypeScript, React, HTML, CSS, Kotlin, Jetpack Compose, and tooling for accessibility and testing.</p>
+      </section>
+
+      <section id="projects" class="projects container">
+        <h3>Some of my work</h3>
+        <div class="projects-grid">
+          <article class="project-card">
+            <img src="images/project1.jpg" alt="Project 1 screenshot" />
+            <h4>Project One</h4>
+            <p>A cross-platform app built with a focus on performance and simple UX. <a href="#">Demo</a> · <a href="#">Repo</a></p>
+          </article>
+
+          <article class="project-card">
+            <img src="images/project2.jpg" alt="Project 2 screenshot" />
+            <h4>Project Two</h4>
+            <p>An e-commerce prototype with secure checkout flow and fast search. <a href="#">Demo</a> · <a href="#">Repo</a></p>
+          </article>
+
+          <article class="project-card">
+            <img src="images/project3.jpg" alt="Project 3 screenshot" />
+            <h4>Project Three</h4>
+            <p>Design system and component library used across multiple products. <a href="#">Docs</a></p>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="contact container">
+        <h3>Contact</h3>
+        <p>If you want to collaborate or say hi, drop a message below or email <a href="mailto:hello@example.com">hello@example.com</a>.</p>
+        <form id="contact-form" action="#" method="get">
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            <span>Message</span>
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+          <button class="btn" type="submit">Send</button>
+          <p class="muted small">When you submit, your email client will open so you can send the message to <strong>alvaromerinopuerta@gmail.com</strong>. If you prefer a contact backend, I can wire Formspree or Netlify Forms.</p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2025 Alvaro Merino — <a href="#">GitHub</a> · <a href="https://www.linkedin.com/in/alvaro-merino-puerta-12794b332/">LinkedIn</a></p>
+        <p class="socials">
+          <a href="#" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.73.5.75 5.48.75 11.76c0 4.9 3.17 9.07 7.57 10.54.55.1.75-.24.75-.53v-1.86c-3.08.67-3.73-1.49-3.73-1.49-.5-1.27-1.23-1.61-1.23-1.61-.99-.68.08-.66.08-.66 1.09.08 1.66 1.12 1.66 1.12.97 1.66 2.55 1.18 3.17.9.1-.7.38-1.18.69-1.45-2.46-.28-5.05-1.23-5.05-5.5 0-1.21.43-2.2 1.13-2.98-.12-.28-.49-1.4.11-2.91 0 0 .92-.3 3.02 1.13.87-.24 1.8-.36 2.72-.36.92 0 1.85.12 2.72.36 2.1-1.43 3.02-1.13 3.02-1.13.6 1.51.24 2.63.12 2.91.7.78 1.13 1.77 1.13 2.98 0 4.28-2.6 5.21-5.07 5.49.39.34.73 1.02.73 2.05v3.04c0 .29.2.63.76.53 4.4-1.47 7.57-5.64 7.57-10.54C23.25 5.48 18.27.5 12 .5z" fill="currentColor"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/alvaro-merino-puerta-12794b332/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C3.88 3.5 3 4.38 3 5.48c0 1.1.88 1.98 1.98 1.98 1.1 0 1.98-.88 1.98-1.98C6.96 4.38 6.08 3.5 4.98 3.5zM3.5 8.75h3v10.75h-3V8.75zM10.25 8.75h2.88v1.47h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.6v6.24h-3v-5.52c0-1.32-.02-3.01-1.83-3.01-1.83 0-2.11 1.43-2.11 2.91v5.62h-3V8.75z" fill="currentColor"/></svg>
+          </a>
+        </p>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
