@@ -30,3 +30,8 @@ Replace placeholder images in `images/` with your real screenshots for best resu
 Contact behavior
 
 - The contact form currently opens your default email client and populates a message addressed to `alvaromerinopuerta@gmail.com` using a `mailto:` link. This is handled in `js/main.js`. If you want server-side form handling instead (Formspree/Netlify), tell me and I'll wire it.
+
+Design notes
+
+- The UI uses a grayscale palette for surfaces and text; headings use vivid accent colors for emphasis.
+- The page has soft, blurred geometric shapes in the background (CSS-only) for subtle depth.

@@ -22,17 +22,33 @@ document.addEventListener('DOMContentLoaded', function () {
   fetch('data/projects.json')
     .then((r) => r.json())
     .then((projects) => {
-      const grid = document.querySelector('.projects-grid');
-      if (!grid) return;
+      const projectsContainer = document.querySelector('.projects');
+      if (!projectsContainer) return;
+      // build a vertical viewport with scroll-snap
+      const viewport = document.createElement('div');
+      viewport.className = 'projects-viewport';
+      const grid = document.createElement('div');
+      grid.className = 'projects-grid';
+
       grid.innerHTML = projects
         .map((p) => `
-          <article class="project-card">
-            <img src="${p.image}" alt="${p.title} screenshot" />
-            <h4>${p.title}</h4>
-            <p>${p.description} <a href="${p.demo}">Demo</a> · <a href="${p.repo}">Repo</a></p>
-          </article>
+          <a class="project-link" href="${p.id}.html">
+            <article class="project-card" tabindex="0">
+              <img src="${p.image}" alt="${p.title} screenshot" />
+              <div class="project-overlay">
+                <h4>${p.title}</h4>
+                <p>${p.description}</p>
+                <p style="margin-top:8px;"><a href="${p.demo}" style="color:inherit; text-decoration:underline;">Demo</a> · <a href="${p.repo}" style="color:inherit; text-decoration:underline;">Repo</a></p>
+              </div>
+            </article>
+          </a>
         `)
         .join('');
+
+      viewport.appendChild(grid);
+      // clear existing and append viewport
+      projectsContainer.innerHTML = '';
+      projectsContainer.appendChild(viewport);
     })
     .catch((err) => console.error('Failed to load projects.json', err));
 
@@ -51,4 +67,5 @@ document.addEventListener('DOMContentLoaded', function () {
       window.location.href = mailto;
     });
   }
+  // theme removed: grayscale UI handled by CSS
 });
