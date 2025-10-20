@@ -3,7 +3,7 @@
     "id": "project1",
     "title": "Smart Expense Tracker",
     "description": "Cross-platform app for personal finance with smart insights.",
-    "image": "images/project1.jpg",
+    "image": "https://images.unsplash.com/photo-1554224155-1696413565d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzOTM4fDB8MXxzZWFyY2h8Nnx8ZmluYW5jZSUyMGFwcHxlbnwwfHx8fDE3MTc2MDY2ODd8MA&ixlib=rb-4.0.3&q=80&w=1080",
     "demo": "#",
     "repo": "#"
   },
@@ -11,7 +11,7 @@
     "id": "project2",
     "title": "E-Commerce Prototype",
     "description": "Scalable shopping app with fast product discovery.",
-    "image": "images/project2.jpg",
+    "image": "https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzOTM4fDB8MXxzZWFyY2h8Mnx8ZSUyMGNvbW1lcmNlfGVufDB8fHx8MTcxNzYwNjczN3ww&ixlib=rb-4.0.3&q=80&w=1080",
     "demo": "#",
     "repo": "#"
   },
@@ -19,7 +19,7 @@
     "id": "project3",
     "title": "Design System",
     "description": "Reusable component library and tokens used across products.",
-    "image": "images/project3.jpg",
+    "image": "https://images.unsplash.com/photo-1606166325353-c1c357a41358?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzOTM4fDB8MXxzZWFyY2h8NHx8ZGVzaWduJTIwc3lzdGVtfGVufDB8fHx8MTcxNzYwNjc1OHww&ixlib=rb-4.0.3&q=80&w=1080",
     "demo": "#",
     "repo": "#"
   }
