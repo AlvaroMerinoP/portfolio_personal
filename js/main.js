@@ -377,18 +377,40 @@ const animateCounters = () => {
 // ============================================
 const animateSkillBars = () => {
   const skillBars = document.querySelectorAll('.skill-fill');
-  
+
+  const setBarWidth = (el) => {
+    const width = el.getAttribute('data-width');
+    if (width != null) el.style.width = `${width}%`;
+  };
+
+  // Fallback: if IntersectionObserver is not available
+  if (typeof IntersectionObserver === 'undefined') {
+    skillBars.forEach(setBarWidth);
+    return;
+  }
+
+  const isInViewport = (el) => {
+    const rect = el.getBoundingClientRect();
+    return rect.top < window.innerHeight && rect.bottom > 0 && rect.left < window.innerWidth && rect.right > 0;
+  };
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const width = entry.target.getAttribute('data-width');
-        entry.target.style.width = `${width}%`;
+        setBarWidth(entry.target);
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.5 });
-  
-  skillBars.forEach(bar => observer.observe(bar));
+  }, { threshold: 0.25, rootMargin: '0px 0px -50px 0px' });
+
+  // Observe all bars and also set immediately if already visible
+  skillBars.forEach(bar => {
+    observer.observe(bar);
+    if (isInViewport(bar)) {
+      setBarWidth(bar);
+      observer.unobserve(bar);
+    }
+  });
 };
 
 // ============================================
