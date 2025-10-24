@@ -11,9 +11,9 @@ const translations = {
     'nav.contact': 'Contact',
     
     // Hero
-    'hero.comment': '// Welcome to my portfolio',
+    'hero.comment': '// Welcome to my portfolio, This is just a test page.',
     'hero.passion': '"Building scalable solutions"',
-    
+
     // Stats
     'stats.linesOfCode': 'Lines of Code',
     'stats.coffee': 'Cups of Coffee',
