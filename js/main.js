@@ -62,13 +62,13 @@ const initAccessibility = () => {
   const highContrast = localStorage.getItem('highContrast') === 'true';
   if (highContrast) {
     document.body.classList.add('high-contrast');
-    document.getElementById('high-contrast')?.classList.add('active'); // ✅ AÑADIR
+    document.getElementById('high-contrast')?.classList.add('active');
   }
   
   document.getElementById('high-contrast')?.addEventListener('click', (e) => {
     document.body.classList.toggle('high-contrast');
     const isActive = document.body.classList.contains('high-contrast');
-    e.currentTarget.classList.toggle('active', isActive); // ✅ AÑADIR
+    e.currentTarget.classList.toggle('active', isActive);
     localStorage.setItem('highContrast', isActive);
     if (window.plausible) plausible('Accessibility', { props: { action: 'High Contrast', value: isActive } });
   });
@@ -77,13 +77,13 @@ const initAccessibility = () => {
   const reduceMotion = localStorage.getItem('reduceMotion') === 'true';
   if (reduceMotion) {
     document.body.classList.add('reduce-motion');
-    document.getElementById('reduce-motion')?.classList.add('active'); // ✅ AÑADIR
+    document.getElementById('reduce-motion')?.classList.add('active');
   }
   
   document.getElementById('reduce-motion')?.addEventListener('click', (e) => {
     document.body.classList.toggle('reduce-motion');
     const isActive = document.body.classList.contains('reduce-motion');
-    e.currentTarget.classList.toggle('active', isActive); // ✅ AÑADIR
+    e.currentTarget.classList.toggle('active', isActive);
     localStorage.setItem('reduceMotion', isActive);
     if (window.plausible) plausible('Accessibility', { props: { action: 'Reduce Motion', value: isActive } });
   });
@@ -93,10 +93,7 @@ const initAccessibility = () => {
     fontSize = 16;
     document.documentElement.style.fontSize = '16px';
     document.body.classList.remove('high-contrast', 'reduce-motion');
-    // ✅ AÑADIR:
-    document.querySelectorAll('.accessibility-btn.active').forEach(btn => {
-      btn.classList.remove('active');
-    });
+    document.querySelectorAll('.accessibility-btn.active').forEach(btn => btn.classList.remove('active'));
     localStorage.removeItem('fontSize');
     localStorage.removeItem('highContrast');
     localStorage.removeItem('reduceMotion');
@@ -173,21 +170,7 @@ const initParticles = () => {
   let particles = [];
   let animationId;
   
-  const resizeCanvas = () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    particles = []; // Recrear partículas al redimensionar
-    createParticles();
-  };
-  resizeCanvas();
-  
-  // ✅ AÑADIR: Debounce para resize
-  let resizeTimeout;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(resizeCanvas, 250);
-  });
-  
+  // Definir dependencias antes de usarlas
   class Particle {
     constructor() {
       this.x = Math.random() * canvas.width;
@@ -213,14 +196,31 @@ const initParticles = () => {
     }
   }
   
-  const createParticles = () => {
+  function createParticles() {
     // ✅ MEJORADO: Ajustar cantidad según tamaño de pantalla
     const density = window.innerWidth < 1024 ? 20000 : 15000;
     const particleCount = Math.floor((canvas.width * canvas.height) / density);
     for (let i = 0; i < particleCount; i++) {
       particles.push(new Particle());
     }
+  }
+  
+  const resizeCanvas = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    particles = []; // Recrear partículas al redimensionar
+    createParticles();
   };
+  
+  // Ejecutar después de definir dependencias
+  resizeCanvas();
+  
+  // ✅ AÑADIR: Debounce para resize
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(resizeCanvas, 250);
+  });
   
   const connectParticles = () => {
     const maxDistance = 120;
