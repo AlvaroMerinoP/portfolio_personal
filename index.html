@@ -1,167 +1,519 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Alvaro Merino — Portfolio</title>
-    <link rel="stylesheet" href="css/estilos.css" />
-  </head>
-  <body>
-    <header class="site-header">
-      <div class="container header-inner">
-        <h1 class="logo">Alvaro Merino</h1>
-        <div class="header-right">
-          <nav class="nav" aria-label="Main navigation">
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-          </nav>
-          <div class="header-socials">
-            <a href="https://github.com/AlvaroMerinoP" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-              <!-- GitHub SVG -->
-            </a>
-            <a href="https://www.linkedin.com/in/alvaro-merino-puerta-12794b332/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          </div>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Alvaro Merino - Full Stack Developer & Telecom Engineer. Specialized in web and mobile development with React, Node.js, Kotlin, and modern technologies." />
+  <meta name="keywords" content="Full Stack Developer, Mobile Engineer, Telecom Engineer, React, Node.js, Kotlin, JavaScript, TypeScript, Web Development, Portfolio" />
+  <meta name="author" content="Alvaro Merino" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://alvaromerino.dev" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://alvaromerino.dev/" />
+  <meta property="og:title" content="Alvaro Merino - Full Stack Developer & Telecom Engineer" />
+  <meta property="og:description" content="Creating elegant digital experiences with modern web and mobile technologies." />
+  <meta property="og:image" content="https://alvaromerino.dev/images/og-image.jpg" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://alvaromerino.dev/" />
+  <meta property="twitter:title" content="Alvaro Merino - Full Stack Developer" />
+  <meta property="twitter:description" content="Creating elegant digital experiences with modern web and mobile technologies." />
+  <meta property="twitter:image" content="https://alvaromerino.dev/images/og-image.jpg" />
+  
+  <!-- Security -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.github.com https://formspree.io https://plausible.io; font-src 'self';">
+  
+  <title>Alvaro Merino - Full Stack Developer & Telecom Engineer</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  
+  <link rel="stylesheet" href="css/estilos.css" />
+  
+  <!-- Plausible Analytics (Privacy-friendly) -->
+  <script defer data-domain="alvaromerino.dev" src="https://plausible.io/js/script.js"></script>
+  
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Alvaro Merino",
+    "jobTitle": "Full Stack Developer & Telecom Engineer",
+    "url": "https://alvaromerino.dev",
+    "sameAs": [
+      "https://github.com/AlvaroMerinoP",
+      "https://www.linkedin.com/in/alvaro-merino-puerta-12794b332/"
+    ],
+    "knowsAbout": [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Node.js",
+      "Kotlin",
+      "Python",
+      "Web Development",
+      "Mobile Development",
+      "Telecommunications"
+    ],
+    "email": "alvaromerinopuerta@gmail.com"
+  }
+  </script>
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-dot"></div>
 
-          <!-- Buttons use same animated <button> used in project pages -->
-          <a class="btn-link" href="#projects" style="text-decoration:none;">
-            <button type="button"><span>See my work</span></button>
-          </a>
-          <a class="btn-link" href="#contact" style="text-decoration:none;">
-            <button type="button"><span>Get in touch</span></button>
-          </a>
-          <a href="files/CV-AlvaroMerino.pdf" download="CV-AlvaroMerino.pdf" style="text-decoration:none;">
-            <button type="button"><span>Descargar CV</span></button>
-          </a>
+  <!-- Particle Canvas Background -->
+  <canvas id="particles-canvas"></canvas>
 
-          <button id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="container hero-inner">
-          <div class="hero-text">
-            <h2>Crafting elegant, front-to-back web & mobile experiences</h2>
-            <p class="lead">I build accessible, responsive applications using modern tools and pragmatic design. Currently focused on frontend engineering, performance, and delightful UX.</p>
-            <p class="hero-cta">
-              <!-- keep same buttons here as well (redundant with header buttons if desired) -->
-            </p>
-          </div>
-          <figure class="hero-image">
-            <img src="images/profile.jpg" alt="Alvaro Merino profile picture" />
-          </figure>
-        </div>
-      </section>
-
-      <section id="about" class="about container">
-        <h3>About</h3>
-        <p id="about-text">I'm a developer who likes to turn ideas into delightful experiences. I enjoy clean interfaces, fast performance, and clear code. Skills: JavaScript, TypeScript, React, HTML, CSS, Kotlin, Jetpack Compose, and tooling for accessibility and testing.</p>
-      </section>
-
-      <section id="projects" class="projects container">
-        <h3>Some of my work</h3>
-        <div class="projects-grid">
-          <a class="project-link" href="project1.html">
-            <article class="project-card">
-              <div class="project-overlay">
-                <h4>Project One</h4>
-                <p>A cross-platform app built with a focus on performance and simple UX. <a href="#">Demo</a> · <a href="#">Repo</a></p>
-              </div>
-            </article>
-          </a>
-
-          <a class="project-link" href="project2.html">
-            <article class="project-card">
-              <div class="project-overlay">
-                <h4>Project Two</h4>
-                <p>An e-commerce prototype with secure checkout flow and fast search. <a href="#">Demo</a> · <a href="#">Repo</a></p>
-              </div>
-            </article>
-          </a>
-
-          <a class="project-link" href="project3.html">
-            <article class="project-card">
-              <div class="project-overlay">
-                <h4>Project Three</h4>
-                <p>Design system and component library used across multiple products. <a href="#">Docs</a></p>
-              </div>
-            </article>
-          </a>
-        </div>
-      </section>
-
-      <section id="contact" class="contact container">
-        <h3>Contact</h3>
-        <p>If you want to collaborate or say hi, drop a message below or email <a href="mailto:alvaromerinopuerta@gmail.com">alvaromerinopuerta@gmail.com</a>.</p>
-  <form id="contact-form" action="#" method="post" data-form-endpoint="">
-          <label>
-            <span>Name</span>
-            <input type="text" name="name" required />
-          </label>
-          <label>
-            <span>Email</span>
-            <input type="email" name="email" required />
-          </label>
-          <label>
-            <span>Message</span>
-            <textarea name="message" rows="5" required></textarea>
-          </label>
-          <button class="btn" type="submit">Send</button>
-          <p class="muted small">When you submit, your email client will open so you can send the message to <strong>alvaromerinopuerta@gmail.com</strong>. If you prefer a contact backend, I can wire Formspree or Netlify Forms.</p>
-        </form>
-      </section>
-    </main>
-
-    <!-- About card modal (hidden by default, shown when clicking About) -->
-    <div id="about-card-modal" class="about-card-modal" aria-hidden="true">
-      <div class="about-card" role="dialog" aria-modal="true" aria-labelledby="about-card-title">
-        <div class="card">
-          <div class="imge">
-              <div class="Usericon" aria-hidden="true" style="background-image: url('images/profile.jpg'); background-size: cover; background-position: center;">
-              </div>
-              <p class="UserName">Alvaro Merino</p>
-              <p class="Id">@alvaromerinopuerta</p>
-            </div>
-
-          <div class="Description" id="about-card-desc"></div>
-
-          <div class="social-media" aria-hidden="true">
-                <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
-                </a>
-                <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg>
-                </a>
-                <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"></path></svg>
-                </a>
-                <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg>
-                </a>
-            </div>
-
-        </div>
-        <button class="about-card-close" aria-label="Cerrar tarjeta">×</button>
+  <!-- Accessibility Controls -->
+  <div class="accessibility-menu" id="accessibility-menu">
+    <button class="accessibility-toggle" id="accessibility-toggle" aria-label="Accessibility options">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M12 6v6l4 2"></path>
+      </svg>
+    </button>
+    <div class="accessibility-panel" id="accessibility-panel">
+      <h3>Accessibility</h3>
+      <div class="accessibility-controls">
+        <button class="accessibility-btn" id="increase-font" aria-label="Increase font size">
+          <span>A+</span> Increase Text
+        </button>
+        <button class="accessibility-btn" id="decrease-font" aria-label="Decrease font size">
+          <span>A-</span> Decrease Text
+        </button>
+        <button class="accessibility-btn" id="high-contrast" aria-label="Toggle high contrast">
+          <span>◐</span> High Contrast
+        </button>
+        <button class="accessibility-btn" id="reduce-motion" aria-label="Reduce animations">
+          <span>⏸</span> Reduce Motion
+        </button>
+        <button class="accessibility-btn" id="reset-accessibility" aria-label="Reset accessibility settings">
+          <span>↻</span> Reset
+        </button>
       </div>
     </div>
+  </div>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p>© 2025 Alvaro Merino — <a href="https://github.com/AlvaroMerinoP">GitHub</a> · <a href="https://www.linkedin.com/in/alvaro-merino-puerta-12794b332/">LinkedIn</a></p>
-        <p class="socials">
-          <a href="#" aria-label="GitHub">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.73.5.75 5.48.75 11.76c0 4.9 3.17 9.07 7.57 10.54.55.1.75-.24.75-.53v-1.86c-3.08.67-3.73-1.49-3.73-1.49-.5-1.27-1.23-1.61-1.23-1.61-.99-.68.08-.66.08-.66 1.09.08 1.66 1.12 1.66 1.12.97 1.66 2.55 1.18 3.17.9.1-.7.38-1.18.69-1.45-2.46-.28-5.05-1.23-5.05-5.5 0-1.21.43-2.2 1.13-2.98-.12-.28-.49-1.4.11-2.91 0 0 .92-.3 3.02 1.13.87-.24 1.8-.36 2.72-.36.92 0 1.85.12 2.72.36 2.1-1.43 3.02-1.13 3.02-1.13.6 1.51.24 2.63.12 2.91.7.78 1.13 1.77 1.13 2.98 0 4.28-2.6 5.21-5.07 5.49.39.34.73 1.02.73 2.05v3.04c0 .29.2.63.76.53 4.4-1.47 7.57-5.64 7.57-10.54C23.25 5.48 18.27.5 12 .5z" fill="currentColor"/></svg>
-          </a>
-          <a href="https://www.linkedin.com/in/alvaro-merino-puerta-12794b332/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C3.88 3.5 3 4.38 3 5.48c0 1.1.88 1.98 1.98 1.98 1.1 0 1.98-.88 1.98-1.98C6.96 4.38 6.08 3.5 4.98 3.5zM3.5 8.75h3v10.75h-3V8.75zM10.25 8.75h2.88v1.47h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.6v6.24h-3v-5.52c0-1.32-.02-3.01-1.83-3.01-1.83 0-2.11 1.43-2.11 2.91v5.62h-3V8.75z" fill="currentColor"/></svg>
-          </a>
-        </p>
+  <!-- Language Switcher -->
+  <div class="language-switcher">
+    <button class="lang-btn active" data-lang="en" aria-label="Switch to English">EN</button>
+    <button class="lang-btn" data-lang="es" aria-label="Cambiar a Español">ES</button>
+  </div>
+
+  <nav class="main-nav" id="main-nav">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">
+        <span class="bracket">&lt;</span>
+        AM
+        <span class="bracket">/&gt;</span>
+      </a>
+      <div class="nav-links">
+        <a href="#work" class="nav-link" data-text="Work" data-i18n="nav.work">Work</a>
+        <a href="#about" class="nav-link" data-text="About" data-i18n="nav.about">About</a>
+        <a href="#skills" class="nav-link" data-text="Skills" data-i18n="nav.skills">Skills</a>
+        <a href="#contact" class="nav-link" data-text="Contact" data-i18n="nav.contact">Contact</a>
       </div>
-    </footer>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
 
-    <script src="js/main.js"></script>
-  </body>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="hero-text">
+          <p class="hero-greeting">
+            <span class="code-comment" data-i18n="hero.comment">// Welcome to my portfolio</span>
+          </p>
+          <h1 class="hero-title">
+            <span class="title-line typing-effect" data-text="Full Stack">Full Stack</span>
+            <span class="title-line typing-effect" data-text="Developer &">Developer &</span>
+            <span class="title-line typing-effect" data-text="Telecom Engineer">Telecom Engineer</span>
+          </h1>
+          <p class="hero-subtitle">
+            <span class="code-keyword">const</span> passion = 
+            <span class="code-string" data-i18n="hero.passion">"Building scalable solutions"</span>;
+          </p>
+          
+          <!-- Interactive Terminal -->
+          <div class="terminal animate-fade-in" id="terminal">
+            <div class="terminal-header">
+              <span class="terminal-dot" style="background: #ff5f56"></span>
+              <span class="terminal-dot" style="background: #ffbd2e"></span>
+              <span class="terminal-dot" style="background: #27c93f"></span>
+              <span class="terminal-title">alvaro@portfolio:~$</span>
+            </div>
+            <div class="terminal-body">
+              <div class="terminal-line">
+                <span class="prompt">$</span>
+                <span class="command">cat skills.txt</span>
+              </div>
+              <div class="terminal-output">
+                <span class="output-text">JavaScript | TypeScript | Python | Kotlin</span>
+              </div>
+              <div class="terminal-line">
+                <span class="prompt">$</span>
+                <span class="command typing-cursor">_</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Code Stats -->
+          <div class="code-stats">
+            <div class="stat-item animate-fade-in">
+              <span class="stat-icon">📊</span>
+              <div class="stat-info">
+                <span class="stat-value" data-count="50000">0</span>
+                <span class="stat-label" data-i18n="stats.linesOfCode">Lines of Code</span>
+              </div>
+            </div>
+            <div class="stat-item animate-fade-in" style="animation-delay: 0.1s;">
+              <span class="stat-icon">☕</span>
+              <div class="stat-info">
+                <span class="stat-value" data-count="1500">0</span>
+                <span class="stat-label" data-i18n="stats.coffee">Cups of Coffee</span>
+              </div>
+            </div>
+            <div class="stat-item animate-fade-in" style="animation-delay: 0.2s;">
+              <span class="stat-icon">🐛</span>
+              <div class="stat-info">
+                <span class="stat-value" data-count="999">0</span>
+                <span class="stat-label" data-i18n="stats.bugs">Bugs Fixed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <span data-i18n="scroll">Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- Work Section -->
+    <section class="work-section" id="work">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="code-comment">// </span>
+          <span data-i18n="work.title">Selected Work</span>
+        </h2>
+        <p class="section-subtitle" data-i18n="work.subtitle">Projects I'm proud of</p>
+      </div>
+
+      <div class="work-grid">
+        <article class="work-item" data-project="1">
+          <a href="project1.html" class="work-link">
+            <div class="work-image">
+              <img src="images/project1.jpg" alt="Smart Expense Tracker" loading="lazy" />
+              <div class="work-overlay">
+                <span class="work-cta" data-i18n="work.viewProject">View Project →</span>
+              </div>
+            </div>
+            <div class="work-info">
+              <h3 class="work-title">Smart Expense Tracker</h3>
+              <p class="work-description" data-i18n="work.project1.desc">Cross-platform finance app with intelligent insights and real-time analytics</p>
+              <div class="work-tags">
+                <span data-tooltip="Mobile Development">React Native</span>
+                <span data-tooltip="Backend API">Node.js</span>
+                <span data-tooltip="NoSQL Database">MongoDB</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="work-item" data-project="2">
+          <a href="project2.html" class="work-link">
+            <div class="work-image">
+              <img src="images/project2.jpg" alt="E-Commerce Platform" loading="lazy" />
+              <div class="work-overlay">
+                <span class="work-cta" data-i18n="work.viewProject">View Project →</span>
+              </div>
+            </div>
+            <div class="work-info">
+              <h3 class="work-title">E-Commerce Platform</h3>
+              <p class="work-description" data-i18n="work.project2.desc">Scalable shopping experience with AI-powered search and recommendations</p>
+              <div class="work-tags">
+                <span data-tooltip="React Framework">Next.js</span>
+                <span data-tooltip="Type Safety">TypeScript</span>
+                <span data-tooltip="Payment Gateway">Stripe</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="work-item" data-project="3">
+          <a href="project3.html" class="work-link">
+            <div class="work-image">
+              <img src="images/project3.jpg" alt="Design System" loading="lazy" />
+              <div class="work-overlay">
+                <span class="work-cta" data-i18n="work.viewProject">View Project →</span>
+              </div>
+            </div>
+            <div class="work-info">
+              <h3 class="work-title">Design System</h3>
+              <p class="work-description" data-i18n="work.project3.desc">Comprehensive component library and design tokens for scalable products</p>
+              <div class="work-tags">
+                <span data-tooltip="UI Library">React</span>
+                <span data-tooltip="Component Explorer">Storybook</span>
+                <span data-tooltip="Design Tool">Figma</span>
+              </div>
+            </div>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section" id="skills">
+      <div class="skills-container">
+        <h2 class="section-title">
+          <span class="code-comment">// </span>
+          <span data-i18n="skills.title">Technical Skills</span>
+        </h2>
+        <div class="skills-grid">
+          <div class="skill-category animate-slide-in">
+            <h3>Frontend</h3>
+            <div class="skill-bars">
+              <div class="skill-bar">
+                <div class="skill-info">
+                  <span>React / Next.js</span>
+                  <span class="skill-percent">90%</span>
+                </div>
+                <div class="skill-progress">
+                  <div class="skill-fill" data-width="90"></div>
+                </div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-info">
+                  <span>TypeScript</span>
+                  <span class="skill-percent">85%</span>
+                </div>
+                <div class="skill-progress">
+                  <div class="skill-fill" data-width="85"></div>
+                </div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-info">
+                  <span>CSS / Tailwind</span>
+                  <span class="skill-percent">88%</span>
+                </div>
+                <div class="skill-progress">
+                  <div class="skill-fill" data-width="88"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category animate-slide-in" style="animation-delay: 0.1s;">
+            <h3>Backend</h3>
+            <div class="skill-bars">
+              <div class="skill-bar">
+                <div class="skill-info">
+                  <span>Node.js / Express</span>
+                  <span class="skill-percent">87%</span>
+                </div>
+                <div class="skill-progress">
+                  <div class="skill-fill" data-width="87"></div>
+                </div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-info">
+                  <span>Python / Django</span>
+                  <span class="skill-percent">80%</span>
+                </div>
+                <div class="skill-progress">
+                  <div class="skill-fill" data-width="80"></div>
+                </div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-info">
+                  <span>PostgreSQL / MongoDB</span>
+                  <span class="skill-percent">82%</span>
+                </div>
+                <div class="skill-progress">
+                  <div class="skill-fill" data-width="82"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category animate-slide-in" style="animation-delay: 0.2s;">
+            <h3>Mobile & DevOps</h3>
+            <div class="skill-bars">
+              <div class="skill-bar">
+                <div class="skill-info">
+                  <span>Kotlin / Jetpack</span>
+                  <span class="skill-percent">83%</span>
+                </div>
+                <div class="skill-progress">
+                  <div class="skill-fill" data-width="83"></div>
+                </div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-info">
+                  <span>Docker / Kubernetes</span>
+                  <span class="skill-percent">75%</span>
+                </div>
+                <div class="skill-progress">
+                  <div class="skill-fill" data-width="75"></div>
+                </div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-info">
+                  <span>AWS / CI/CD</span>
+                  <span class="skill-percent">78%</span>
+                </div>
+                <div class="skill-progress">
+                  <div class="skill-fill" data-width="78"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+      <div class="about-container">
+        <div class="about-image animate-fade-in">
+          <img src="images/profile.jpg" alt="Alvaro Merino" loading="lazy" />
+          <div class="image-frame"></div>
+        </div>
+        <div class="about-content">
+          <h2 class="section-title">
+            <span class="code-comment">// </span>
+            <span data-i18n="about.title">About Me</span>
+          </h2>
+          <div class="about-text">
+            <p data-i18n="about.p1"><span class="highlight-text">Telecom Engineer</span> turned Full Stack Developer, passionate about creating elegant solutions to complex problems. With expertise in web and mobile development, I focus on building products that are both beautiful and functional.</p>
+            <p data-i18n="about.p2">Currently exploring the intersection of <span class="highlight-text">network architectures</span> and modern web technologies, always learning, and contributing to open source.</p>
+          </div>
+          <div class="about-stats">
+            <div class="stat">
+              <span class="stat-number" data-counter="3">0</span>
+              <span class="stat-label" data-i18n="about.yearsExp">Years Experience</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-counter="15">0</span>
+              <span class="stat-label" data-i18n="about.projects">Projects Completed</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-counter="8">0</span>
+              <span class="stat-label" data-i18n="about.technologies">Technologies</span>
+            </div>
+          </div>
+          
+          <!-- GitHub Stats -->
+          <div class="github-stats" id="github-stats">
+            <h3 data-i18n="about.githubActivity">GitHub Activity</h3>
+            <div class="github-grid">
+              <div class="github-stat">
+                <span class="github-icon">⭐</span>
+                <span class="github-value" id="gh-stars">--</span>
+                <span class="github-label">Stars</span>
+              </div>
+              <div class="github-stat">
+                <span class="github-icon">🍴</span>
+                <span class="github-value" id="gh-forks">--</span>
+                <span class="github-label">Forks</span>
+              </div>
+              <div class="github-stat">
+                <span class="github-icon">📦</span>
+                <span class="github-value" id="gh-repos">--</span>
+                <span class="github-label">Repos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+      <div class="contact-container">
+        <h2 class="section-title">
+          <span class="code-comment">// </span>
+          <span data-i18n="contact.title">Let's Work Together</span>
+        </h2>
+        <p class="contact-intro" data-i18n="contact.intro">Have a project in mind? Let's talk about it.</p>
+        
+        <form id="contact-form" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+          <div class="form-group">
+            <label for="name" data-i18n="contact.name">Name</label>
+            <input type="text" id="name" name="name" required autocomplete="name" placeholder="John Doe" />
+          </div>
+          <div class="form-group">
+            <label for="email" data-i18n="contact.email">Email</label>
+            <input type="email" id="email" name="email" required autocomplete="email" placeholder="john@example.com" />
+          </div>
+          <div class="form-group">
+            <label for="message" data-i18n="contact.message">Message</label>
+            <textarea id="message" name="message" rows="6" required placeholder="Your message here..."></textarea>
+          </div>
+          <button type="submit" class="submit-btn">
+            <span data-i18n="contact.send">Send Message</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+          <div class="form-status" id="form-status"></div>
+        </form>
+
+        <div class="contact-info">
+          <a href="mailto:alvaromerinopuerta@gmail.com" class="contact-email">alvaromerinopuerta@gmail.com</a>
+          <div class="contact-social">
+            <a href="https://github.com/AlvaroMerinoP" target="_blank" rel="noopener noreferrer" aria-label="GitHub" data-tooltip="GitHub Profile">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 .5C5.73.5.75 5.48.75 11.76c0 4.9 3.17 9.07 7.57 10.54.55.1.75-.24.75-.53v-1.86c-3.08.67-3.73-1.49-3.73-1.49-.5-1.27-1.23-1.61-1.23-1.61-.99-.68.08-.66.08-.66 1.09.08 1.66 1.12 1.66 1.12.97 1.66 2.55 1.18 3.17.9.1-.7.38-1.18.69-1.45-2.46-.28-5.05-1.23-5.05-5.5 0-1.21.43-2.2 1.13-2.98-.12-.28-.49-1.4.11-2.91 0 0 .92-.3 3.02 1.13.87-.24 1.8-.36 2.72-.36.92 0 1.85.12 2.72.36 2.1-1.43 3.02-1.13 3.02-1.13.6 1.51.24 2.63.12 2.91.7.78 1.13 1.77 1.13 2.98 0 4.28-2.6 5.21-5.07 5.49.39.34.73 1.02.73 2.05v3.04c0 .29.2.63.76.53 4.4-1.47 7.57-5.64 7.57-10.54C23.25 5.48 18.27.5 12 .5z"/>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/alvaro-merino-puerta-12794b332/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" data-tooltip="LinkedIn Profile">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4.98 3.5C3.88 3.5 3 4.38 3 5.48c0 1.1.88 1.98 1.98 1.98 1.1 0 1.98-.88 1.98-1.98C6.96 4.38 6.08 3.5 4.98 3.5zM3.5 8.75h3v10.75h-3V8.75zM10.25 8.75h2.88v1.47h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.6v6.24h-3v-5.52c0-1.32-.02-3.01-1.83-3.01-1.83 0-2.11 1.43-2.11 2.91v5.62h-3V8.75z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <p>
+        <span class="code-comment">// </span>
+        © 2025 Alvaro Merino. <span data-i18n="footer.crafted">Crafted with</span> 
+        <span class="heart">❤️</span> <span data-i18n="footer.and">and</span> ☕
+      </p>
+      <a href="#home" class="back-to-top" data-i18n="footer.backToTop">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- Easter Egg Modal -->
+  <div class="easter-egg-modal" id="easter-egg-modal">
+    <div class="easter-egg-content">
+      <h3>🎉 <span data-i18n="easter.title">You found the secret!</span></h3>
+      <p data-i18n="easter.message">Konami Code activated! You're a true developer.</p>
+      <button class="close-easter-egg" data-i18n="easter.close">Close</button>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/i18n.js"></script>
+</body>
 </html>

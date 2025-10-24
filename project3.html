@@ -3,35 +3,223 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Design System — Alvaro Merino</title>
+  <meta name="description" content="E-Commerce Platform - Scalable shopping experience with AI-powered search built with Next.js, TypeScript, and Stripe" />
+  <title>E-Commerce Platform — Alvaro Merino</title>
   <link rel="stylesheet" href="css/estilos.css" />
+  <link rel="stylesheet" href="css/project-detail.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="index.html" style="text-decoration:none;">
-        <button type="button"><span>Back</span></button>
+      <a href="index.html" class="back-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>Back to Portfolio</span>
       </a>
-      <div class="header-right"></div>
     </div>
   </header>
-  <main class="container">
-    <h1>Design System</h1>
-    <p>Descripción detallada del proyecto. Añade aquí capturas, tecnologías usadas, retos y enlaces a demo/repo.</p>
+
+  <main class="project-detail">
+    <section class="project-hero">
+      <div class="project-hero-content">
+        <div class="project-category">E-Commerce · Full Stack</div>
+        <h1 class="project-title">E-Commerce Platform</h1>
+        <p class="project-subtitle">Scalable shopping experience with AI-powered search and personalized recommendations</p>
+        
+        <div class="project-meta">
+          <div class="meta-item">
+            <span class="meta-label">Role</span>
+            <span class="meta-value">Lead Developer</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Duration</span>
+            <span class="meta-value">6 months</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Year</span>
+            <span class="meta-value">2024</span>
+          </div>
+        </div>
+
+        <div class="project-links">
+          <a href="#" class="btn-primary" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            Live Demo
+          </a>
+          <a href="https://github.com/AlvaroMerinoP" class="btn-secondary" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 .5C5.73.5.75 5.48.75 11.76c0 4.9 3.17 9.07 7.57 10.54.55.1.75-.24.75-.53v-1.86c-3.08.67-3.73-1.49-3.73-1.49-.5-1.27-1.23-1.61-1.23-1.61-.99-.68.08-.66.08-.66 1.09.08 1.66 1.12 1.66 1.12.97 1.66 2.55 1.18 3.17.9.1-.7.38-1.18.69-1.45-2.46-.28-5.05-1.23-5.05-5.5 0-1.21.43-2.2 1.13-2.98-.12-.28-.49-1.4.11-2.91 0 0 .92-.3 3.02 1.13.87-.24 1.8-.36 2.72-.36.92 0 1.85.12 2.72.36 2.1-1.43 3.02-1.13 3.02-1.13.6 1.51.24 2.63.12 2.91.7.78 1.13 1.77 1.13 2.98 0 4.28-2.6 5.21-5.07 5.49.39.34.73 1.02.73 2.05v3.04c0 .29.2.63.76.53 4.4-1.47 7.57-5.64 7.57-10.54C23.25 5.48 18.27.5 12 .5z"/>
+            </svg>
+            View Code
+          </a>
+        </div>
+      </div>
+      
+      <div class="project-hero-image">
+        <img src="images/project2.jpg" alt="E-Commerce Platform Screenshot" />
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="section-content">
+        <h2>Project Overview</h2>
+        <p class="lead">A modern e-commerce platform featuring AI-powered product recommendations, advanced search capabilities, and seamless checkout experience built for scalability.</p>
+        
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <h3>Smart Search</h3>
+            <p>AI-powered search with natural language processing and typo tolerance</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>Personalization</h3>
+            <p>Machine learning recommendations based on user behavior and preferences</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">💳</div>
+            <h3>Secure Payments</h3>
+            <p>PCI-compliant payment processing with Stripe integration</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📦</div>
+            <h3>Inventory Management</h3>
+            <p>Real-time stock tracking with automated reorder notifications</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section tech-section">
+      <div class="section-content">
+        <h2>Technology Stack</h2>
+        <div class="tech-stack">
+          <div class="tech-category">
+            <h3>Frontend</h3>
+            <div class="tech-tags">
+              <span class="tech-tag">Next.js 14</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">Tailwind CSS</span>
+              <span class="tech-tag">Zustand</span>
+              <span class="tech-tag">React Query</span>
+            </div>
+          </div>
+          <div class="tech-category">
+            <h3>Backend</h3>
+            <div class="tech-tags">
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">PostgreSQL</span>
+              <span class="tech-tag">Prisma ORM</span>
+              <span class="tech-tag">Redis</span>
+              <span class="tech-tag">Stripe API</span>
+            </div>
+          </div>
+          <div class="tech-category">
+            <h3>Infrastructure</h3>
+            <div class="tech-tags">
+              <span class="tech-tag">Vercel</span>
+              <span class="tech-tag">AWS S3</span>
+              <span class="tech-tag">Cloudflare CDN</span>
+              <span class="tech-tag">GitHub Actions</span>
+              <span class="tech-tag">Sentry</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="section-content">
+        <h2>Challenges & Solutions</h2>
+        
+        <div class="challenge-list">
+          <div class="challenge-item">
+            <h3>⚡ Challenge: Performance at Scale</h3>
+            <p><strong>Problem:</strong> Need to handle 10K+ concurrent users during peak sales periods.</p>
+            <p><strong>Solution:</strong> Implemented server-side rendering with Next.js ISR, Redis caching layer, and CDN for static assets. Used database read replicas and connection pooling to optimize queries.</p>
+          </div>
+
+          <div class="challenge-item">
+            <h3>🤖 Challenge: Intelligent Product Recommendations</h3>
+            <p><strong>Problem:</strong> Generic recommendations leading to low conversion rates.</p>
+            <p><strong>Solution:</strong> Built collaborative filtering algorithm analyzing user behavior patterns. Integrated TensorFlow.js for client-side personalization, increasing average order value by 35%.</p>
+          </div>
+
+          <div class="challenge-item">
+            <h3>🛒 Challenge: Cart Abandonment</h3>
+            <p><strong>Problem:</strong> High cart abandonment rate during checkout process.</p>
+            <p><strong>Solution:</strong> Simplified checkout to single-page flow, added guest checkout option, implemented cart recovery emails, and optimized payment form validation for better UX.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section results-section">
+      <div class="section-content">
+        <h2>Results & Impact</h2>
+        <div class="results-grid">
+          <div class="result-card">
+            <div class="result-number">50K+</div>
+            <div class="result-label">Monthly Active Users</div>
+          </div>
+          <div class="result-card">
+            <div class="result-number">2.3s</div>
+            <div class="result-label">Avg. Page Load Time</div>
+          </div>
+          <div class="result-card">
+            <div class="result-number">35%</div>
+            <div class="result-label">Conversion Increase</div>
+          </div>
+          <div class="result-card">
+            <div class="result-number">99.9%</div>
+            <div class="result-label">Uptime SLA</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="section-content">
+        <h2>Key Learnings</h2>
+        <ul class="learnings-list">
+          <li>Mastered Next.js App Router and server components for optimal performance</li>
+          <li>Learned payment gateway integration best practices and PCI compliance requirements</li>
+          <li>Gained expertise in database query optimization and caching strategies at scale</li>
+          <li>Improved understanding of SEO for e-commerce and structured data implementation</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="next-project">
+      <div class="next-project-content">
+        <span class="next-label">Next Project</span>
+        <h2>Design System</h2>
+        <a href="project3.html" class="next-link">
+          View Project
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </section>
   </main>
+
   <footer class="site-footer">
     <div class="container">
       <p>© 2025 Alvaro Merino — 
-        <a href="https://github.com/AlvaroMerinoP" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.73.5.75 5.48.75 11.76c0 4.9 3.17 9.07 7.57 10.54.55.1.75-.24.75-.53v-1.86c-3.08.67-3.73-1.49-3.73-1.49-.5-1.27-1.23-1.61-1.23-1.61-.99-.68.08-.66.08-.66 1.09.08 1.66 1.12 1.66 1.12.97 1.66 2.55 1.18 3.17.9.1-.7.38-1.18.69-1.45-2.46-.28-5.05-1.23-5.05-5.5 0-1.21.43-2.2 1.13-2.98-.12-.28-.49-1.4.11-2.91 0 0 .92-.3 3.02 1.13.87-.24 1.8-.36 2.72-.36.92 0 1.85.12 2.72.36 2.1-1.43 3.02-1.13 3.02-1.13.6 1.51.24 2.63.12 2.91.7.78 1.13 1.77 1.13 2.98 0 4.28-2.6 5.21-5.07 5.49.39.34.73 1.02.73 2.05v3.04c0 .29.2.63.76.53 4.4-1.47 7.57-5.64 7.57-10.54C23.25 5.48 18.27.5 12 .5z" fill="currentColor"/></svg>
-        </a>
-        · 
-        <a href="https://www.linkedin.com/in/alvaro-merino-puerta-12794b332/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C3.88 3.5 3 4.38 3 5.48c0 1.1.88 1.98 1.98 1.98 1.1 0 1.98-.88 1.98-1.98C6.96 4.38 6.08 3.5 4.98 3.5zM3.5 8.75h3v10.75h-3V8.75zM10.25 8.75h2.88v1.47h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.6v6.24h-3v-5.52c0-1.32-.02-3.01-1.83-3.01-1.83 0-2.11 1.43-2.11 2.91v5.62h-3V8.75z" fill="currentColor"/></svg>
-        </a>
+        <a href="https://github.com/AlvaroMerinoP" target="_blank" rel="noopener noreferrer">GitHub</a> · 
+        <a href="https://www.linkedin.com/in/alvaro-merino-puerta-12794b332/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </p>
     </div>
   </footer>
+
   <script src="js/main.js"></script>
 </body>
 </html>

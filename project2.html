@@ -3,35 +3,222 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>E-Commerce Prototype — Alvaro Merino</title>
+  <meta name="description" content="Design System - Comprehensive component library and design tokens built with React, Storybook, and Figma" />
+  <title>Design System — Alvaro Merino</title>
   <link rel="stylesheet" href="css/estilos.css" />
+  <link rel="stylesheet" href="css/project-detail.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="index.html" style="text-decoration:none;">
-        <button type="button"><span>Back</span></button>
+      <a href="index.html" class="back-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>Back to Portfolio</span>
       </a>
-      <div class="header-right"></div>
     </div>
   </header>
-  <main class="container">
-    <h1>E-Commerce Prototype</h1>
-    <p>Descripción detallada del proyecto. Añade aquí capturas, tecnologías usadas, retos y enlaces a demo/repo.</p>
+
+  <main class="project-detail">
+    <section class="project-hero">
+      <div class="project-hero-content">
+        <div class="project-category">Design System · UI Library</div>
+        <h1 class="project-title">Unified Design System</h1>
+        <p class="project-subtitle">Comprehensive component library and design tokens powering multiple products</p>
+        
+        <div class="project-meta">
+          <div class="meta-item">
+            <span class="meta-label">Role</span>
+            <span class="meta-value">Design Engineer</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Duration</span>
+            <span class="meta-value">4 months</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Year</span>
+            <span class="meta-value">2023-2024</span>
+          </div>
+        </div>
+
+        <div class="project-links">
+          <a href="#" class="btn-primary" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            View Storybook
+          </a>
+          <a href="https://github.com/AlvaroMerinoP" class="btn-secondary" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 .5C5.73.5.75 5.48.75 11.76c0 4.9 3.17 9.07 7.57 10.54.55.1.75-.24.75-.53v-1.86c-3.08.67-3.73-1.49-3.73-1.49-.5-1.27-1.23-1.61-1.23-1.61-.99-.68.08-.66.08-.66 1.09.08 1.66 1.12 1.66 1.12.97 1.66 2.55 1.18 3.17.9.1-.7.38-1.18.69-1.45-2.46-.28-5.05-1.23-5.05-5.5 0-1.21.43-2.2 1.13-2.98-.12-.28-.49-1.4.11-2.91 0 0 .92-.3 3.02 1.13.87-.24 1.8-.36 2.72-.36.92 0 1.85.12 2.72.36 2.1-1.43 3.02-1.13 3.02-1.13.6 1.51.24 2.63.12 2.91.7.78 1.13 1.77 1.13 2.98 0 4.28-2.6 5.21-5.07 5.49.39.34.73 1.02.73 2.05v3.04c0 .29.2.63.76.53 4.4-1.47 7.57-5.64 7.57-10.54C23.25 5.48 18.27.5 12 .5z"/>
+            </svg>
+            View Code
+          </a>
+        </div>
+      </div>
+      
+      <div class="project-hero-image">
+        <img src="images/project3.jpg" alt="Design System Screenshot" />
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="section-content">
+        <h2>Project Overview</h2>
+        <p class="lead">A scalable design system that ensures consistency across multiple products while enabling teams to build faster with reusable, accessible components.</p>
+        
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3>Design Tokens</h3>
+            <p>Centralized color, typography, and spacing tokens synced between Figma and code</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">⚛️</div>
+            <h3>60+ Components</h3>
+            <p>Production-ready React components with TypeScript support and full documentation</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">♿</div>
+            <h3>Accessibility First</h3>
+            <p>WCAG 2.1 AA compliant with keyboard navigation and screen reader support</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📚</div>
+            <h3>Comprehensive Docs</h3>
+            <p>Interactive Storybook documentation with live code examples and guidelines</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section tech-section">
+      <div class="section-content">
+        <h2>Technology Stack</h2>
+        <div class="tech-stack">
+          <div class="tech-category">
+            <h3>Development</h3>
+            <div class="tech-tags">
+              <span class="tech-tag">React 18</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">Styled Components</span>
+              <span class="tech-tag">CSS Variables</span>
+              <span class="tech-tag">Radix UI</span>
+            </div>
+          </div>
+          <div class="tech-category">
+            <h3>Documentation</h3>
+            <div class="tech-tags">
+              <span class="tech-tag">Storybook 7</span>
+              <span class="tech-tag">MDX</span>
+              <span class="tech-tag">Chromatic</span>
+              <span class="tech-tag">JSDoc</span>
+              <span class="tech-tag">TypeDoc</span>
+            </div>
+          </div>
+          <div class="tech-category">
+            <h3>Testing & Quality</h3>
+            <div class="tech-tags">
+              <span class="tech-tag">Jest</span>
+              <span class="tech-tag">React Testing Library</span>
+              <span class="tech-tag">Axe Core</span>
+              <span class="tech-tag">Chromatic Visual Testing</span>
+              <span class="tech-tag">ESLint</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="section-content">
+        <h2>Challenges & Solutions</h2>
+        
+        <div class="challenge-list">
+          <div class="challenge-item">
+            <h3>🎯 Challenge: Design-Dev Sync</h3>
+            <p><strong>Problem:</strong> Maintaining consistency between Figma designs and code implementation.</p>
+            <p><strong>Solution:</strong> Created Figma plugin to export design tokens as JSON. Automated token conversion to CSS variables and TypeScript types using Style Dictionary. Implemented visual regression tests with Chromatic.</p>
+          </div>
+
+          <div class="challenge-item">
+            <h3>♿ Challenge: Accessibility at Scale</h3>
+            <p><strong>Problem:</strong> Ensuring all components meet WCAG standards across different use cases.</p>
+            <p><strong>Solution:</strong> Integrated Radix UI primitives for accessible foundations. Added automated accessibility testing with axe-core and jest-axe. Created comprehensive accessibility documentation with examples.</p>
+          </div>
+
+          <div class="challenge-item">
+            <h3>📦 Challenge: Component Composition</h3>
+            <p><strong>Problem:</strong> Balancing flexibility with consistency in component API design.</p>
+            <p><strong>Solution:</strong> Adopted compound component pattern for complex components. Used TypeScript generics for type-safe polymorphic components. Provided sensible defaults while allowing customization.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section results-section">
+      <div class="section-content">
+        <h2>Results & Impact</h2>
+        <div class="results-grid">
+          <div class="result-card">
+            <div class="result-number">5</div>
+            <div class="result-label">Products Using System</div>
+          </div>
+          <div class="result-card">
+            <div class="result-number">40%</div>
+            <div class="result-label">Faster Development</div>
+          </div>
+          <div class="result-card">
+            <div class="result-number">100%</div>
+            <div class="result-label">Test Coverage</div>
+          </div>
+          <div class="result-card">
+            <div class="result-number">60+</div>
+            <div class="result-label">Components Built</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="section-content">
+        <h2>Key Learnings</h2>
+        <ul class="learnings-list">
+          <li>Learned importance of documentation and developer experience in component library adoption</li>
+          <li>Mastered advanced TypeScript patterns for building type-safe, flexible component APIs</li>
+          <li>Gained deep understanding of web accessibility standards and testing methodologies</li>
+          <li>Developed skills in design tokens architecture and multi-platform design system management</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="next-project">
+      <div class="next-project-content">
+        <span class="next-label">Back to</span>
+        <h2>All Projects</h2>
+        <a href="index.html#work" class="next-link">
+          View Portfolio
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </section>
   </main>
+
   <footer class="site-footer">
     <div class="container">
       <p>© 2025 Alvaro Merino — 
-        <a href="https://github.com/AlvaroMerinoP" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.73.5.75 5.48.75 11.76c0 4.9 3.17 9.07 7.57 10.54.55.1.75-.24.75-.53v-1.86c-3.08.67-3.73-1.49-3.73-1.49-.5-1.27-1.23-1.61-1.23-1.61-.99-.68.08-.66.08-.66 1.09.08 1.66 1.12 1.66 1.12.97 1.66 2.55 1.18 3.17.9.1-.7.38-1.18.69-1.45-2.46-.28-5.05-1.23-5.05-5.5 0-1.21.43-2.2 1.13-2.98-.12-.28-.49-1.4.11-2.91 0 0 .92-.3 3.02 1.13.87-.24 1.8-.36 2.72-.36.92 0 1.85.12 2.72.36 2.1-1.43 3.02-1.13 3.02-1.13.6 1.51.24 2.63.12 2.91.7.78 1.13 1.77 1.13 2.98 0 4.28-2.6 5.21-5.07 5.49.39.34.73 1.02.73 2.05v3.04c0 .29.2.63.76.53 4.4-1.47 7.57-5.64 7.57-10.54C23.25 5.48 18.27.5 12 .5z" fill="currentColor"/></svg>
-        </a>
-        · 
-        <a href="https://www.linkedin.com/in/alvaro-merino-puerta-12794b332/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C3.88 3.5 3 4.38 3 5.48c0 1.1.88 1.98 1.98 1.98 1.1 0 1.98-.88 1.98-1.98C6.96 4.38 6.08 3.5 4.98 3.5zM3.5 8.75h3v10.75h-3V8.75zM10.25 8.75h2.88v1.47h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.6v6.24h-3v-5.52c0-1.32-.02-3.01-1.83-3.01-1.83 0-2.11 1.43-2.11 2.91v5.62h-3V8.75z" fill="currentColor"/></svg>
-        </a>
+        <a href="https://github.com/AlvaroMerinoP" target="_blank" rel="noopener noreferrer">GitHub</a> · 
+        <a href="https://www.linkedin.com/in/alvaro-merino-puerta-12794b332/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </p>
     </div>
   </footer>
+
   <script src="js/main.js"></script>
 </body>
 </html>
