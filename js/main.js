@@ -60,22 +60,30 @@ const initAccessibility = () => {
   
   // High contrast mode
   const highContrast = localStorage.getItem('highContrast') === 'true';
-  if (highContrast) document.body.classList.add('high-contrast');
+  if (highContrast) {
+    document.body.classList.add('high-contrast');
+    document.getElementById('high-contrast')?.classList.add('active'); // ✅ AÑADIR
+  }
   
-  document.getElementById('high-contrast')?.addEventListener('click', () => {
+  document.getElementById('high-contrast')?.addEventListener('click', (e) => {
     document.body.classList.toggle('high-contrast');
     const isActive = document.body.classList.contains('high-contrast');
+    e.currentTarget.classList.toggle('active', isActive); // ✅ AÑADIR
     localStorage.setItem('highContrast', isActive);
     if (window.plausible) plausible('Accessibility', { props: { action: 'High Contrast', value: isActive } });
   });
   
   // Reduce motion
   const reduceMotion = localStorage.getItem('reduceMotion') === 'true';
-  if (reduceMotion) document.body.classList.add('reduce-motion');
+  if (reduceMotion) {
+    document.body.classList.add('reduce-motion');
+    document.getElementById('reduce-motion')?.classList.add('active'); // ✅ AÑADIR
+  }
   
-  document.getElementById('reduce-motion')?.addEventListener('click', () => {
+  document.getElementById('reduce-motion')?.addEventListener('click', (e) => {
     document.body.classList.toggle('reduce-motion');
     const isActive = document.body.classList.contains('reduce-motion');
+    e.currentTarget.classList.toggle('active', isActive); // ✅ AÑADIR
     localStorage.setItem('reduceMotion', isActive);
     if (window.plausible) plausible('Accessibility', { props: { action: 'Reduce Motion', value: isActive } });
   });
@@ -85,6 +93,10 @@ const initAccessibility = () => {
     fontSize = 16;
     document.documentElement.style.fontSize = '16px';
     document.body.classList.remove('high-contrast', 'reduce-motion');
+    // ✅ AÑADIR:
+    document.querySelectorAll('.accessibility-btn.active').forEach(btn => {
+      btn.classList.remove('active');
+    });
     localStorage.removeItem('fontSize');
     localStorage.removeItem('highContrast');
     localStorage.removeItem('reduceMotion');
@@ -144,20 +156,37 @@ const initCustomCursor = () => {
 // PARTICLE CANVAS BACKGROUND
 // ============================================
 const initParticles = () => {
-  if (localStorage.getItem('reduceMotion') === 'true') return;
+  // ✅ AÑADIR: Detectar móvil y reduce-motion
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  const hasReducedMotion = localStorage.getItem('reduceMotion') === 'true';
+  
+  if (isMobile || hasReducedMotion) {
+    const canvas = document.getElementById('particles-canvas');
+    if (canvas) canvas.style.display = 'none';
+    return;
+  }
   
   const canvas = document.getElementById('particles-canvas');
   if (!canvas) return;
   
   const ctx = canvas.getContext('2d');
   let particles = [];
+  let animationId;
   
   const resizeCanvas = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    particles = []; // Recrear partículas al redimensionar
+    createParticles();
   };
   resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
+  
+  // ✅ AÑADIR: Debounce para resize
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(resizeCanvas, 250);
+  });
   
   class Particle {
     constructor() {
@@ -185,22 +214,25 @@ const initParticles = () => {
   }
   
   const createParticles = () => {
-    const particleCount = Math.floor((canvas.width * canvas.height) / 15000);
+    // ✅ MEJORADO: Ajustar cantidad según tamaño de pantalla
+    const density = window.innerWidth < 1024 ? 20000 : 15000;
+    const particleCount = Math.floor((canvas.width * canvas.height) / density);
     for (let i = 0; i < particleCount; i++) {
       particles.push(new Particle());
     }
   };
   
   const connectParticles = () => {
+    const maxDistance = 120;
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < 120) {
+        if (distance < maxDistance) {
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / 120)})`;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / maxDistance)})`;
           ctx.lineWidth = 0.5;
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
@@ -217,11 +249,16 @@ const initParticles = () => {
       particle.draw();
     });
     connectParticles();
-    requestAnimationFrame(animateParticles);
+    animationId = requestAnimationFrame(animateParticles);
   };
   
   createParticles();
   animateParticles();
+  
+  // ✅ AÑADIR: Limpiar al salir
+  window.addEventListener('beforeunload', () => {
+    if (animationId) cancelAnimationFrame(animationId);
+  });
 };
 
 // ============================================
@@ -359,25 +396,39 @@ const animateSkillBars = () => {
 // ============================================
 const fetchGitHubStats = async () => {
   const username = 'AlvaroMerinoP';
+  const reposEl = document.getElementById('gh-repos');
+  const starsEl = document.getElementById('gh-stars');
+  const forksEl = document.getElementById('gh-forks');
+  
   try {
     const response = await fetch(`https://api.github.com/users/${username}`);
+    if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
+    
     const data = await response.json();
+    if (reposEl) reposEl.textContent = data.public_repos || '0';
     
-    const reposEl = document.getElementById('gh-repos');
-    if (reposEl) reposEl.textContent = data.public_repos || '--';
+    // Fetch repos con manejo de paginación
+    const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100&sort=updated`);
+    if (!reposResponse.ok) throw new Error('Repos fetch failed');
     
-    const reposResponse = await fetch(`https://api.github.com/users/${username}/repos`);
     const repos = await reposResponse.json();
     
     const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
     const totalForks = repos.reduce((sum, repo) => sum + repo.forks_count, 0);
     
-    const starsEl = document.getElementById('gh-stars');
-    const forksEl = document.getElementById('gh-forks');
     if (starsEl) starsEl.textContent = totalStars;
     if (forksEl) forksEl.textContent = totalForks;
+    
+    // Track successful load
+    if (window.plausible) {
+      plausible('GitHub Stats Loaded', { props: { repos: data.public_repos, stars: totalStars } });
+    }
   } catch (error) {
     console.error('GitHub API error:', error);
+    // Mostrar valores por defecto sin hacer ruido
+    if (reposEl) reposEl.textContent = '--';
+    if (starsEl) starsEl.textContent = '--';
+    if (forksEl) forksEl.textContent = '--';
   }
 };
 
@@ -599,15 +650,17 @@ const mobileNav = () => {
   if (!toggle || !links) return;
   
   toggle.addEventListener('click', () => {
-    const isOpen = links.style.display === 'flex';
-    links.style.display = isOpen ? 'none' : 'flex';
+    // Cambiar de style.display a classList
+    const isOpen = links.classList.contains('active');
+    links.classList.toggle('active');
     toggle.classList.toggle('active');
     toggle.setAttribute('aria-expanded', !isOpen);
   });
   
+  // Cerrar al hacer clic en un enlace
   links.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
-      links.style.display = 'none';
+      links.classList.remove('active');
       toggle.classList.remove('active');
       toggle.setAttribute('aria-expanded', 'false');
     });
@@ -631,7 +684,20 @@ document.addEventListener('DOMContentLoaded', () => {
   initTerminal();
   animateCounters();
   animateSkillBars();
-  fetchGitHubStats();
+  
+  const aboutSection = document.getElementById('about');
+  if (aboutSection) {
+    const githubObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          fetchGitHubStats();
+          githubObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '50px' });
+    
+    githubObserver.observe(aboutSection);
+  }
   
   // Easter eggs
   initKonamiCode();
@@ -642,8 +708,28 @@ document.addEventListener('DOMContentLoaded', () => {
   navHideShow();
   handleContactForm();
   mobileNav();
+  initImageFallbacks();
   
   console.log('%c👋 Hey there, curious developer!', 'font-size: 20px; color: #00ff88; font-weight: bold;');
   console.log('%cTry the Konami Code: ↑ ↑ ↓ ↓ ← → ← → B A', 'font-size: 14px; color: #ffaa00;');
 });
+
+// ============================================
+// IMAGE FALLBACKS (for missing local assets)
+// ============================================
+function initImageFallbacks() {
+  const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800'%3E%3Crect width='1200' height='800' fill='%23222222'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaaaaa' font-family='Arial, Helvetica, sans-serif' font-size='42'%3EImage coming soon%3C/text%3E%3C/svg%3E";
+  const targets = document.querySelectorAll('.work-image img, .about-image img');
+  targets.forEach((img) => {
+    img.addEventListener('error', () => {
+      if (!img.dataset.fallbackApplied) {
+        img.dataset.fallbackApplied = 'true';
+        img.src = placeholder;
+        img.removeAttribute('srcset');
+        img.style.objectFit = 'cover';
+        img.alt = img.alt || 'Placeholder image';
+      }
+    }, { once: true });
+  });
+}
 
