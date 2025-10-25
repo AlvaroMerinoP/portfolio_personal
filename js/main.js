@@ -105,9 +105,15 @@ const initAccessibility = () => {
 // CUSTOM CURSOR
 // ============================================
 const initCustomCursor = () => {
-  // Skip on mobile or if reduce-motion is enabled
-  if (window.matchMedia('(max-width: 768px)').matches || 
-      localStorage.getItem('reduceMotion') === 'true') return;
+  // ✅ Respetar preferencias del sistema
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  const userWantsCursor = localStorage.getItem('customCursor') !== 'false'; // Permitir deshabilitar
+  
+  if (isMobile || prefersReducedMotion || !userWantsCursor) {
+    document.querySelectorAll('.custom-cursor, .custom-cursor-dot').forEach(el => el.remove());
+    return;
+  }
   
   const cursor = document.querySelector('.custom-cursor');
   const cursorDot = document.querySelector('.custom-cursor-dot');
@@ -151,13 +157,13 @@ const initCustomCursor = () => {
 
 // ============================================
 // PARTICLE CANVAS BACKGROUND
-// ============================================
 const initParticles = () => {
-  // ✅ AÑADIR: Detectar móvil y reduce-motion
+  // Mejora detección CPU/GPU débil
+  const hasWeakGPU = Number(navigator.hardwareConcurrency || 4) <= 2;
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
   const hasReducedMotion = localStorage.getItem('reduceMotion') === 'true';
   
-  if (isMobile || hasReducedMotion) {
+  if (isMobile || hasReducedMotion || hasWeakGPU) {
     const canvas = document.getElementById('particles-canvas');
     if (canvas) canvas.style.display = 'none';
     return;
@@ -338,6 +344,65 @@ const initTerminal = () => {
 };
 
 // ============================================
+// INTERACTIVE TERMINAL
+// ============================================
+const initInteractiveTerminal = () => {
+  const terminal = document.getElementById('terminal');
+  if (!terminal) return;
+  
+  const input = terminal.querySelector('.terminal-line:last-child .command');
+  const body = terminal.querySelector('.terminal-body');
+  
+  const commands = {
+    'help': 'Available commands: whoami, skills, projects, contact, clear',
+    'whoami': 'Alvaro Merino - Full Stack Developer',
+    'skills': 'JavaScript, TypeScript, React, Node.js, Kotlin, Python',
+    'projects': 'Smart Expense Tracker, E-Commerce Platform, Design System',
+    'contact': 'alvaromerinopuerta@gmail.com | github.com/AlvaroMerinoP',
+    'clear': null
+  };
+  
+  let currentInput = '';
+  
+  document.addEventListener('keydown', (e) => {
+    if (!terminal.matches(':hover')) return;
+    
+    if (e.key === 'Enter') {
+      const cmd = currentInput.trim().toLowerCase();
+      
+      // Añadir comando ejecutado
+      const cmdLine = document.createElement('div');
+      cmdLine.className = 'terminal-line';
+      cmdLine.innerHTML = `<span class="prompt">$</span><span class="command">${currentInput}</span>`;
+      body.insertBefore(cmdLine, input.parentElement);
+      
+      // Mostrar output
+      if (cmd === 'clear') {
+        body.innerHTML = '';
+        body.appendChild(input.parentElement);
+      } else {
+        const output = commands[cmd] || `Command not found: ${cmd}. Type 'help' for available commands.`;
+        const outputDiv = document.createElement('div');
+        outputDiv.className = 'terminal-output';
+        outputDiv.textContent = output;
+        body.insertBefore(outputDiv, input.parentElement);
+      }
+      
+      currentInput = '';
+      input.textContent = '_';
+      body.scrollTop = body.scrollHeight;
+      
+    } else if (e.key === 'Backspace') {
+      currentInput = currentInput.slice(0, -1);
+      input.textContent = currentInput + '_';
+    } else if (e.key.length === 1) {
+      currentInput += e.key;
+      input.textContent = currentInput + '_';
+    }
+  });
+};
+
+// ============================================
 // COUNTER ANIMATION
 // ============================================
 const animateCounters = () => {
@@ -359,6 +424,15 @@ const animateCounters = () => {
     window.requestAnimationFrame(step);
   };
   
+  // Fallback si no hay IntersectionObserver
+  if (typeof IntersectionObserver === 'undefined') {
+    counters.forEach(counter => {
+      const target = parseInt(counter.getAttribute('data-count') || counter.getAttribute('data-counter'));
+      if (!Number.isNaN(target)) animateValue(counter, 0, target, 2000);
+    });
+    return;
+  }
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -418,41 +492,56 @@ const animateSkillBars = () => {
 // ============================================
 const fetchGitHubStats = async () => {
   const username = 'AlvaroMerinoP';
-  const reposEl = document.getElementById('gh-repos');
-  const starsEl = document.getElementById('gh-stars');
-  const forksEl = document.getElementById('gh-forks');
+  const CACHE_KEY = 'gh_stats_cache';
+  const CACHE_DURATION = 1000 * 60 * 30; // 30 minutos
+  
+  // ✅ Verificar caché primero
+  const cached = localStorage.getItem(CACHE_KEY);
+  if (cached) {
+    const { data, timestamp } = JSON.parse(cached);
+    if (Date.now() - timestamp < CACHE_DURATION) {
+      updateGitHubUI(data);
+      return;
+    }
+  }
   
   try {
     const response = await fetch(`https://api.github.com/users/${username}`);
     if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
     
-    const data = await response.json();
-    if (reposEl) reposEl.textContent = data.public_repos || '0';
-    
-    // Fetch repos con manejo de paginación
+    const userData = await response.json();
     const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100&sort=updated`);
-    if (!reposResponse.ok) throw new Error('Repos fetch failed');
-    
     const repos = await reposResponse.json();
     
-    const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
-    const totalForks = repos.reduce((sum, repo) => sum + repo.forks_count, 0);
+    const stats = {
+      repos: userData.public_repos,
+      stars: repos.reduce((sum, r) => sum + r.stargazers_count, 0),
+      forks: repos.reduce((sum, r) => sum + r.forks_count, 0)
+    };
     
-    if (starsEl) starsEl.textContent = totalStars;
-    if (forksEl) forksEl.textContent = totalForks;
+    // ✅ Guardar en caché
+    localStorage.setItem(CACHE_KEY, JSON.stringify({
+      data: stats,
+      timestamp: Date.now()
+    }));
     
-    // Track successful load
-    if (window.plausible) {
-      plausible('GitHub Stats Loaded', { props: { repos: data.public_repos, stars: totalStars } });
-    }
+    updateGitHubUI(stats);
+    
   } catch (error) {
     console.error('GitHub API error:', error);
-    // Mostrar valores por defecto sin hacer ruido
-    if (reposEl) reposEl.textContent = '--';
-    if (starsEl) starsEl.textContent = '--';
-    if (forksEl) forksEl.textContent = '--';
+    updateGitHubUI({ repos: '--', stars: '--', forks: '--' });
   }
 };
+
+function updateGitHubUI({ repos, stars, forks }) {
+  const reposEl = document.getElementById('gh-repos');
+  const starsEl = document.getElementById('gh-stars');
+  const forksEl = document.getElementById('gh-forks');
+  
+  if (reposEl) reposEl.textContent = repos;
+  if (starsEl) starsEl.textContent = stars;
+  if (forksEl) forksEl.textContent = forks;
+}
 
 // ============================================
 // TOOLTIPS
@@ -606,7 +695,7 @@ const handleContactForm = () => {
       return;
     }
     
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email)) {
       status.textContent = 'Please enter a valid email.';
       status.className = 'form-status error';
       return;
@@ -690,6 +779,74 @@ const mobileNav = () => {
 };
 
 // ============================================
+// BACK TO TOP BUTTON
+// ============================================
+const initBackToTop = () => {
+  const btn = document.querySelector('.back-to-top');
+  if (!btn) return;
+  
+  // Mostrar/ocultar según scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+    } else {
+      btn.style.opacity = '0';
+      btn.style.pointerEvents = 'none';
+    }
+  });
+  
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.plausible) plausible('Back to Top Clicked');
+  });
+};
+
+// ============================================
+// THEME TOGGLE
+// ============================================
+const initThemeToggle = () => {
+  const currentTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  
+  const toggle = document.getElementById('theme-toggle');
+  if (!toggle) return;
+  
+  toggle.addEventListener('click', () => {
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    if (window.plausible) plausible('Theme Toggle', { props: { theme: newTheme } });
+  });
+};
+
+// ============================================
+// PROJECT FILTERS
+// ============================================
+const initProjectFilters = () => {
+  const btns = document.querySelectorAll('.filter-btn');
+  const projects = document.querySelectorAll('.work-item');
+  
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      projects.forEach(project => {
+        if (filter === 'all' || project.dataset.tags?.includes(filter)) {
+          project.style.display = 'block';
+        } else {
+          project.style.display = 'none';
+        }
+      });
+    });
+  });
+};
+
+// ============================================
 // INITIALIZE ALL
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -704,6 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Terminal & stats
   initTerminal();
+  initInteractiveTerminal();
   animateCounters();
   animateSkillBars();
   
@@ -716,42 +874,22 @@ document.addEventListener('DOMContentLoaded', () => {
           githubObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '50px' });
+    }, { threshold: 0.1 });
     
     githubObserver.observe(aboutSection);
   }
   
-  // Easter eggs
-  initKonamiCode();
-  
-  // Core functionality
+  // Scroll animations
   observeElements();
   smoothScroll();
   navHideShow();
-  handleContactForm();
   mobileNav();
-  initImageFallbacks();
-  
-  console.log('%c👋 Hey there, curious developer!', 'font-size: 20px; color: #00ff88; font-weight: bold;');
-  console.log('%cTry the Konami Code: ↑ ↑ ↓ ↓ ← → ← → B A', 'font-size: 14px; color: #ffaa00;');
-});
+  initBackToTop();
+  initThemeToggle();
+  initProjectFilters();
 
-// ============================================
-// IMAGE FALLBACKS (for missing local assets)
-// ============================================
-function initImageFallbacks() {
-  const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800'%3E%3Crect width='1200' height='800' fill='%23222222'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaaaaa' font-family='Arial, Helvetica, sans-serif' font-size='42'%3EImage coming soon%3C/text%3E%3C/svg%3E";
-  const targets = document.querySelectorAll('.work-image img, .about-image img');
-  targets.forEach((img) => {
-    img.addEventListener('error', () => {
-      if (!img.dataset.fallbackApplied) {
-        img.dataset.fallbackApplied = 'true';
-        img.src = placeholder;
-        img.removeAttribute('srcset');
-        img.style.objectFit = 'cover';
-        img.alt = img.alt || 'Placeholder image';
-      }
-    }, { once: true });
-  });
-}
+  // Añadir estas dos líneas:
+  handleContactForm();
+  initKonamiCode();
+});
 

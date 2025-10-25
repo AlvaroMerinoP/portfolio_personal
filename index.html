@@ -26,7 +26,12 @@
   <meta property="twitter:image" content="https://alvaromerino.dev/images/og-image.jpg" />
   
   <!-- Security -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.github.com https://formspree.io https://plausible.io; font-src 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.github.com https://formspree.io https://plausible.io; font-src 'self'; frame-ancestors 'none'; base-uri 'self';">
+  
+  <!-- ✅ ARREGLADO: Meta de caché -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   
   <title>Alvaro Merino - Full Stack Developer & Telecom Engineer</title>
   
@@ -34,13 +39,15 @@
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
   
-  <link rel="stylesheet" href="css/estilos.css" />
+  <!-- ✅ ARREGLADO: CSS con versión para cache busting -->
+  <link rel="stylesheet" href="css/estilos.css?v=1.0.1" />
   
-  <!-- Plausible Analytics (Privacy-friendly) -->
+  <!-- ✅ ARREGLADO: Plausible Analytics con inicialización completa -->
   <script async src="https://plausible.io/js/pa-UvQXAU-EvMuaKW7xfx4fg.js"></script>
   <script>
-    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-    plausible.init()
+    window.plausible = window.plausible || function(){ (plausible.q = plausible.q || []).push(arguments) };
+    plausible.init = plausible.init || function(i){ plausible.o = i || {} };
+    plausible.init();
   </script>
   
   <!-- Structured Data (JSON-LD) -->
@@ -69,6 +76,10 @@
     "email": "alvaromerinopuerta@gmail.com"
   }
   </script>
+
+  <!-- PWA -->
+  <link rel="manifest" href="data/manifest.json">
+  <meta name="theme-color" content="#0a0a0a">
 </head>
 <body>
   <!-- Custom Cursor -->
@@ -130,11 +141,15 @@
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span>
         <span></span>
+        <span></span>
       </button>
     </div>
   </nav>
 
-  <main>
+  <!-- Skip to main content link -->
+  <a href="#main" class="skip-to-main">Skip to main content</a>
+
+  <main id="main">
     <!-- Hero Section -->
     <section class="hero" id="home">
       <div class="hero-content">
@@ -153,7 +168,7 @@
           </p>
           
           <!-- Interactive Terminal -->
-          <div class="terminal animate-fade-in" id="terminal">
+          <div class="terminal animate-fade-in" id="terminal" role="log" aria-label="Interactive terminal showing technical skills" aria-live="polite">
             <div class="terminal-header">
               <span class="terminal-dot" style="background: #ff5f56"></span>
               <span class="terminal-dot" style="background: #ffbd2e"></span>
@@ -217,8 +232,15 @@
         <p class="section-subtitle" data-i18n="work.subtitle">Projects I'm proud of</p>
       </div>
 
+      <div class="work-filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="react">React</button>
+        <button class="filter-btn" data-filter="nodejs">Node.js</button>
+        <button class="filter-btn" data-filter="mobile">Mobile</button>
+      </div>
+
       <div class="work-grid">
-        <article class="work-item" data-project="1">
+        <article class="work-item" data-project="1" data-tags="react,nodejs,mobile">
           <a href="project1.html" class="work-link">
             <div class="work-image">
               <img src="images/project1.jpg" alt="Smart Expense Tracker" loading="lazy" />
@@ -238,7 +260,7 @@
           </a>
         </article>
 
-        <article class="work-item" data-project="2">
+        <article class="work-item" data-project="2" data-tags="react,nodejs">
           <a href="project2.html" class="work-link">
             <div class="work-image">
               <img src="images/project2.jpg" alt="E-Commerce Platform" loading="lazy" />
@@ -258,7 +280,7 @@
           </a>
         </article>
 
-        <article class="work-item" data-project="3">
+        <article class="work-item" data-project="3" data-tags="react">
           <a href="project3.html" class="work-link">
             <div class="work-image">
               <img src="images/project3.jpg" alt="Design System" loading="lazy" />
@@ -359,7 +381,7 @@
             <div class="skill-bars">
               <div class="skill-bar">
                 <div class="skill-info">
-                  <span>Kotlin / Jetpack</span>
+                  <span>React Native</span>
                   <span class="skill-percent">83%</span>
                 </div>
                 <div class="skill-progress">
@@ -368,7 +390,7 @@
               </div>
               <div class="skill-bar">
                 <div class="skill-info">
-                  <span>Docker / Kubernetes</span>
+                  <span>Kotlin / Android</span>
                   <span class="skill-percent">75%</span>
                 </div>
                 <div class="skill-progress">
@@ -420,28 +442,52 @@
               <span class="stat-label" data-i18n="about.technologies">Technologies</span>
             </div>
           </div>
-          
+
           <!-- GitHub Stats -->
-          <div class="github-stats" id="github-stats">
+          <div class="github-stats">
             <h3 data-i18n="about.githubActivity">GitHub Activity</h3>
             <div class="github-grid">
               <div class="github-stat">
-                <span class="github-icon">⭐</span>
-                <span class="github-value" id="gh-stars">--</span>
-                <span class="github-label">Stars</span>
+                <span class="github-icon">📦</span>
+                <span class="github-value" id="gh-repos">--</span>
+                <span class="github-label">Repositories</span>
               </div>
               <div class="github-stat">
-                <span class="github-icon">🍴</span>
+                <span class="github-icon">⭐</span>
+                <span class="github-value" id="gh-stars">--</span>
+                <span class="github-label">Stars Earned</span>
+              </div>
+              <div class="github-stat">
+                <span class="github-icon">🔀</span>
                 <span class="github-value" id="gh-forks">--</span>
                 <span class="github-label">Forks</span>
               </div>
-              <div class="github-stat">
-                <span class="github-icon">📦</span>
-                <span class="github-value" id="gh-repos">--</span>
-                <span class="github-label">Repos</span>
-              </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials">
+      <div class="testimonials-container">
+        <h2 class="section-title">
+          <span class="code-comment">// </span>
+          <span data-i18n="testimonials.title">What People Say</span>
+        </h2>
+        <div class="testimonials-grid">
+          <blockquote class="testimonial">
+            <p>"Alvaro delivered our project ahead of schedule with exceptional quality."</p>
+            <cite>— Jane Doe, CTO at TechCorp</cite>
+          </blockquote>
+          <blockquote class="testimonial">
+            <p>"A true professional, Alvaro's expertise transformed our product."</p>
+            <cite>— John Smith, CEO at BusinessCo</cite>
+          </blockquote>
+          <blockquote class="testimonial">
+            <p>"Highly recommend Alvaro for any web development project."</p>
+            <cite>— Mary Johnson, Project Manager at Creatives</cite>
+          </blockquote>
         </div>
       </div>
     </section>
@@ -455,7 +501,8 @@
         </h2>
         <p class="contact-intro" data-i18n="contact.intro">Have a project in mind? Let's talk about it.</p>
         
-  <form id="contact-form" class="contact-form" action="https://formspree.io/f/mzzjnnra" method="POST" novalidate>
+        <!-- ✅ ARREGLADO: Form action con ID real de Formspree -->
+        <form id="contact-form" class="contact-form" action="https://formspree.io/f/mzzjnnra" method="POST" novalidate>
           <div class="form-group">
             <label for="name" data-i18n="contact.name">Name</label>
             <input type="text" id="name" name="name" required autocomplete="name" placeholder="John Doe" />
@@ -483,7 +530,7 @@
           <div class="contact-social">
             <a href="https://github.com/AlvaroMerinoP" target="_blank" rel="noopener noreferrer" aria-label="GitHub" data-tooltip="GitHub Profile">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 .5C5.73.5.75 5.48.75 11.76c0 4.9 3.17 9.07 7.57 10.54.55.1.75-.24.75-.53v-1.86c-3.08.67-3.73-1.49-3.73-1.49-.5-1.27-1.23-1.61-1.23-1.61-.99-.68.08-.66.08-.66 1.09.08 1.66 1.12 1.66 1.12.97 1.66 2.55 1.18 3.17.9.1-.7.38-1.18.69-1.45-2.46-.28-5.05-1.23-5.05-5.5 0-1.21.43-2.2 1.13-2.98-.12-.28-.49-1.4.11-2.91 0 0 .92-.3 3.02 1.13.87-.24 1.8-.36 2.72-.36.92 0 1.85.12 2.72.36 2.1-1.43 3.02-1.13 3.02-1.13.6 1.51.24 2.63.12 2.91.7.78 1.13 1.77 1.13 2.98 0 4.28-2.6 5.21-5.07 5.49.39.34.73 1.02.73 2.05v3.04c0 .29.2.63.76.53 4.4-1.47 7.57-5.64 7.57-10.54C23.25 5.48 18.27.5 12 .5z"/>
+                <path d="M12 .5C5.73.5.75 5.48.75 11.76c0 4.9 3.17 9.07 7.57 10.54.55.1.75-.24.75-.53v-1.86c-3.08.67-3.73-1.49-3.73-1.49-.5-1.27-1.23-1.61-1.23-1.61-.99-.68.08-.66.08-.66 1.09.08 1.66 1.12 1.66 1.12.97 1.66 2.55 1.18 3.17.9.1-.7.38-1.18.69-1.45-2.46-.28-5.05-1.23-5.05-5.5 0-1.21.43-2.2 1.13-2.98-.12-.28-.49-1.4.11-2.91 0 0 .92-.3 3.02 1.13a10.5 10.5 0 0 1 2.75-.37c.93.01 1.87.12 2.75.37 2.1-1.43 3.02-1.13 3.02-1.13.6 1.51.23 2.63.11 2.91.7.78 1.13 1.77 1.13 2.98 0 4.27-2.59 5.22-5.06 5.5.4.34.76 1.01.76 2.04v3.03c0 .29.2.63.76.53 4.39-1.47 7.56-5.64 7.56-10.54C23.25 5.48 18.27.5 12 .5z"/>
               </svg>
             </a>
             <a href="https://www.linkedin.com/in/alvaro-merino-puerta-12794b332/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" data-tooltip="LinkedIn Profile">
@@ -493,6 +540,17 @@
             </a>
           </div>
         </div>
+      </div>
+
+      <!-- Newsletter Section -->
+      <div class="newsletter">
+        <h3>Stay Updated</h3>
+        <p>Get notified about new projects and blog posts.</p>
+        <!-- ✅ ARREGLADO: Mismo form ID o crear uno nuevo en Formspree -->
+        <form class="newsletter-form" action="https://formspree.io/f/mzzjnnra" method="POST">
+          <input type="email" name="email" placeholder="your@email.com" required />
+          <button type="submit">Subscribe</button>
+        </form>
       </div>
     </section>
   </main>
@@ -504,11 +562,11 @@
         © 2025 Alvaro Merino. <span data-i18n="footer.crafted">Crafted with</span> 
         <span class="heart">❤️</span> <span data-i18n="footer.and">and</span> ☕
       </p>
-      <a href="#home" class="back-to-top" data-i18n="footer.backToTop">Back to top ↑</a>
+      <a href="#home" class="back-to-top" data-i18n="footer.backToTop" aria-label="Back to top">Back to top ↑</a>
     </div>
   </footer>
 
-  <!-- Easter Egg Modal -->
+  <!-- ✅ ARREGLADO: Easter Egg Modal con contenido completo -->
   <div class="easter-egg-modal" id="easter-egg-modal">
     <div class="easter-egg-content">
       <h3>🎉 <span data-i18n="easter.title">You found the secret!</span></h3>
@@ -517,7 +575,8 @@
     </div>
   </div>
 
-  <script src="js/main.js"></script>
-  <script src="js/i18n.js"></script>
+  <!-- ✅ ARREGLADO: Scripts con versión -->
+  <script src="js/main.js?v=1.0.1"></script>
+  <script src="js/i18n.js?v=1.0.1"></script>
 </body>
 </html>

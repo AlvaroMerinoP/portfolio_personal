@@ -1,0 +1,12 @@
+
+[
+  {
+    "id": 1,
+    "title": "Building Scalable APIs with Node.js",
+    "slug": "scalable-apis-nodejs",
+    "date": "2025-01-15",
+    "excerpt": "Learn how to structure Node.js APIs for production...",
+    "tags": ["Node.js", "Backend", "Architecture"],
+    "readTime": "8 min"
+  }
+]

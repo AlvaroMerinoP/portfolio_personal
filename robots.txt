@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://alvaromerino.dev/sitemap.xml
+# Crawl-delay para bots agresivos
+Crawl-delay: 10
+
+# Bloquear bots conocidos de scraping
+User-agent: AhrefsBot
+User-agent: SemrushBot
+Disallow: /
+
+Sitemap: https://alvaromerinop.github.io/portfolio_personal/sitemap.xml

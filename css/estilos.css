@@ -524,11 +524,13 @@ a {
 }
 
 .back-to-top {
-  transition: opacity 0.2s;
+  transition: opacity 0.3s;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .back-to-top:hover {
-  opacity: 0.6;
+  opacity: 1 !important; /* Sobrescribir el estado oculto */
 }
 
 /* Project Detail Page Styles */
@@ -951,11 +953,15 @@ a {
   }
   
   .nav-toggle.active span:first-child {
-    transform: rotate(45deg) translateY(8px);
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .nav-toggle.active span:nth-child(2) {
+    opacity: 0; /* Añadir span central si quieres efecto hamburguesa → X */
   }
   
   .nav-toggle.active span:last-child {
-    transform: rotate(-45deg) translateY(-8px);
+    transform: rotate(-45deg) translate(5px, -5px);
   }
   
   .nav-toggle {
@@ -1569,5 +1575,28 @@ body.matrix-mode {
   .stat-item {
     min-width: auto;
   }
+}
+
+/* Skip to Main Content */
+.skip-to-main {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 10000;
+}
+
+.skip-to-main:focus {
+  top: 0;
+}
+
+[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #666;
+  --color-border: #e0e0e0;
 }
 
