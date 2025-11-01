@@ -24,9 +24,9 @@ const translations = {
     'work.title': 'Selected Work',
     'work.subtitle': 'Projects I\'m proud of',
     'work.viewProject': 'View Project →',
-    'work.project1.desc': 'Cross-platform finance app with intelligent insights and real-time analytics',
-    'work.project2.desc': 'Scalable shopping experience with AI-powered search and recommendations',
-    'work.project3.desc': 'Comprehensive component library and design tokens for scalable products',
+    'work.project1.desc': 'AI-powered personal finance tracker with automated categorization, budget insights, and predictive analytics',
+    'work.project2.desc': 'Eco-friendly e-commerce platform featuring sustainable tech apparel with smart inventory management',
+    'work.project3.desc': 'AI-powered design system generator that creates accessible, customizable component libraries',
     
     // Skills
     'skills.title': 'Technical Skills',
@@ -80,9 +80,9 @@ const translations = {
     'work.title': 'Proyectos Destacados',
     'work.subtitle': 'Proyectos de los que estoy orgulloso',
     'work.viewProject': 'Ver Proyecto →',
-    'work.project1.desc': 'App multiplataforma de finanzas con insights inteligentes y analíticas en tiempo real',
-    'work.project2.desc': 'Experiencia de compra escalable con búsqueda y recomendaciones basadas en IA',
-    'work.project3.desc': 'Librería de componentes completa y tokens de diseño para productos escalables',
+    'work.project1.desc': 'Gestor de finanzas personales con IA, categorización automática, insights presupuestarios y análisis predictivos',
+    'work.project2.desc': 'Plataforma de e-commerce ecológica con ropa tecnológica sostenible y gestión inteligente de inventario',
+    'work.project3.desc': 'Generador de sistemas de diseño potenciado por IA que crea librerías de componentes accesibles y personalizables',
     
     // Habilidades
     'skills.title': 'Habilidades Técnicas',
