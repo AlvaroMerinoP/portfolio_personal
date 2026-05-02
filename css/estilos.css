@@ -1600,3 +1600,16 @@ body.matrix-mode {
   --color-border: #e0e0e0;
 }
 
+/* ============================================
+   UTILITY — CSP-friendly alternatives to inline styles
+   ============================================ */
+
+/* Terminal dot colours (replaces style="background: …") */
+.terminal-dot--red    { background: #ff5f56; }
+.terminal-dot--yellow { background: #ffbd2e; }
+.terminal-dot--green  { background: #27c93f; }
+
+/* Animation delay helpers (replaces style="animation-delay: …") */
+.anim-delay-1 { animation-delay: 0.1s; }
+.anim-delay-2 { animation-delay: 0.2s; }
+
