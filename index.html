@@ -503,6 +503,8 @@
         
         <!-- ✅ ARREGLADO: Form action con ID real de Formspree -->
         <form id="contact-form" class="contact-form" action="https://formspree.io/f/mzzjnnra" method="POST" novalidate>
+          <!-- Honeypot anti-spam: must stay empty; bots fill it, humans don't -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" aria-hidden="true" autocomplete="off" />
           <div class="form-group">
             <label for="name" data-i18n="contact.name">Name</label>
             <input type="text" id="name" name="name" required autocomplete="name" placeholder="John Doe" />
@@ -546,8 +548,11 @@
       <div class="newsletter">
         <h3>Stay Updated</h3>
         <p>Get notified about new projects and blog posts.</p>
-        <!-- ✅ ARREGLADO: Mismo form ID o crear uno nuevo en Formspree -->
-        <form class="newsletter-form" action="https://formspree.io/f/mzzjnnra" method="POST">
+        <!-- Newsletter usa su propio ID de Formspree (distinto al de contacto).
+             Crea un segundo form en https://formspree.io y sustituye YOUR_NEWSLETTER_FORM_ID. -->
+        <form class="newsletter-form" action="https://formspree.io/f/YOUR_NEWSLETTER_FORM_ID" method="POST">
+          <!-- Honeypot anti-spam: must stay empty; bots fill it, humans don't -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" aria-hidden="true" autocomplete="off" />
           <input type="email" name="email" placeholder="your@email.com" required />
           <button type="submit">Subscribe</button>
         </form>
