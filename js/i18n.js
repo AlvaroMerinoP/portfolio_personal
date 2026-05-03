@@ -124,15 +124,33 @@ const translate = (key) => {
   return translations[currentLang][key] || key;
 };
 
+// Safe HTML setter: only allows <span class="highlight-text"> elements.
+// Uses regex splitting — no innerHTML or DOMParser — to prevent XSS.
+const setTranslationContent = (element, html) => {
+  const parts = html.split(/(<span class="highlight-text">[\s\S]*?<\/span>)/g);
+  const fragment = document.createDocumentFragment();
+  parts.forEach(part => {
+    const match = part.match(/^<span class="highlight-text">([\s\S]*?)<\/span>$/);
+    if (match) {
+      const span = document.createElement('span');
+      span.className = 'highlight-text';
+      span.textContent = match[1];
+      fragment.appendChild(span);
+    } else if (part) {
+      fragment.appendChild(document.createTextNode(part));
+    }
+  });
+  element.replaceChildren(fragment);
+};
+
 // Update all translatable elements
 const updateTranslations = () => {
   document.querySelectorAll('[data-i18n]').forEach(element => {
     const key = element.getAttribute('data-i18n');
     const translation = translate(key);
-    
-    // Check if translation contains HTML
+
     if (translation.includes('<')) {
-      element.innerHTML = translation;
+      setTranslationContent(element, translation);
     } else {
       element.textContent = translation;
     }

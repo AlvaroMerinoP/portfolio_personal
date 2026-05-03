@@ -151,7 +151,12 @@ All sections are clearly marked with comments in `index.html`:
 - Clear browser cache (Cmd+Shift+R on Mac)
 
 ### Forms not working?
-- Verify Formspree is configured: `https://formspree.io/f/mzzjnnra`
+- Verify the **contact** form Formspree ID: `https://formspree.io/f/mzzjnnra`
+- The **newsletter** form uses a **separate** Formspree form to keep submissions distinct.
+  Create a second form at https://formspree.io, copy its ID, and replace `YOUR_NEWSLETTER_FORM_ID`
+  in the `<form action="…">` attribute inside `index.html` (search for `YOUR_NEWSLETTER_FORM_ID`).
+- Both forms include an invisible honeypot field (`_gotcha`) that Formspree uses automatically to
+  filter spam — do not remove it.
 - Check browser console for errors
 - Make sure JavaScript is enabled
 

@@ -325,12 +325,22 @@ const initTerminal = () => {
     
     const newOutput = document.createElement('div');
     newOutput.className = 'terminal-output';
-    newOutput.innerHTML = `<span class="output-text">${commands[currentCmd].output}</span>`;
+    const outputSpan = document.createElement('span');
+    outputSpan.className = 'output-text';
+    outputSpan.textContent = commands[currentCmd].output;
+    newOutput.appendChild(outputSpan);
     terminalBody.insertBefore(newOutput, lastLine);
-    
+
     const newLine = document.createElement('div');
     newLine.className = 'terminal-line';
-    newLine.innerHTML = `<span class="prompt">$</span><span class="command">${commands[(currentCmd + 1) % commands.length].cmd}</span>`;
+    const promptSpan = document.createElement('span');
+    promptSpan.className = 'prompt';
+    promptSpan.textContent = '$';
+    const commandSpan = document.createElement('span');
+    commandSpan.className = 'command';
+    commandSpan.textContent = commands[(currentCmd + 1) % commands.length].cmd;
+    newLine.appendChild(promptSpan);
+    newLine.appendChild(commandSpan);
     terminalBody.insertBefore(newLine, lastLine);
     
     const lines = terminalBody.querySelectorAll('.terminal-line, .terminal-output');
@@ -373,13 +383,19 @@ const initInteractiveTerminal = () => {
       // Añadir comando ejecutado
       const cmdLine = document.createElement('div');
       cmdLine.className = 'terminal-line';
-      cmdLine.innerHTML = `<span class="prompt">$</span><span class="command">${currentInput}</span>`;
+      const cmdPrompt = document.createElement('span');
+      cmdPrompt.className = 'prompt';
+      cmdPrompt.textContent = '$';
+      const cmdText = document.createElement('span');
+      cmdText.className = 'command';
+      cmdText.textContent = currentInput;
+      cmdLine.appendChild(cmdPrompt);
+      cmdLine.appendChild(cmdText);
       body.insertBefore(cmdLine, input.parentElement);
       
       // Mostrar output
       if (cmd === 'clear') {
-        body.innerHTML = '';
-        body.appendChild(input.parentElement);
+        body.replaceChildren(input.parentElement);
       } else {
         const output = commands[cmd] || `Command not found: ${cmd}. Type 'help' for available commands.`;
         const outputDiv = document.createElement('div');
