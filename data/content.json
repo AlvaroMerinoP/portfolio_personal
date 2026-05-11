@@ -1,0 +1,65 @@
+{
+  "skills": [
+    {
+      "category": "frontend",
+      "label_en": "Frontend",
+      "label_es": "Frontend",
+      "items": [
+        { "name": "React / Next.js", "level": 90 },
+        { "name": "TypeScript",      "level": 85 },
+        { "name": "CSS / Tailwind",  "level": 88 }
+      ]
+    },
+    {
+      "category": "backend",
+      "label_en": "Backend",
+      "label_es": "Backend",
+      "items": [
+        { "name": "Node.js / Express",   "level": 87 },
+        { "name": "Python / Django",     "level": 80 },
+        { "name": "PostgreSQL / MongoDB","level": 82 }
+      ]
+    },
+    {
+      "category": "mobile",
+      "label_en": "Mobile & DevOps",
+      "label_es": "Móvil y DevOps",
+      "items": [
+        { "name": "React Native",  "level": 83 },
+        { "name": "Kotlin / Android","level": 75 },
+        { "name": "AWS / CI/CD",   "level": 78 }
+      ]
+    }
+  ],
+
+  "testimonials": [
+    {
+      "quote_en": "Alvaro delivered our project ahead of schedule with exceptional quality. His attention to detail and proactive communication made the entire process smooth.",
+      "quote_es": "Álvaro entregó nuestro proyecto antes de plazo con una calidad excepcional. Su atención al detalle y comunicación proactiva hicieron que todo el proceso fuera fluido.",
+      "author": "Jane Doe",
+      "role_en": "CTO at TechCorp",
+      "role_es": "CTO en TechCorp"
+    },
+    {
+      "quote_en": "A true professional. Alvaro's expertise transformed our product — performance improved by 40% and user satisfaction soared.",
+      "quote_es": "Un verdadero profesional. La experiencia de Álvaro transformó nuestro producto: el rendimiento mejoró un 40 % y la satisfacción de los usuarios se disparó.",
+      "author": "John Smith",
+      "role_en": "CEO at BusinessCo",
+      "role_es": "CEO en BusinessCo"
+    },
+    {
+      "quote_en": "Highly recommend Alvaro for any web development project. He brought creative solutions and delivered clean, maintainable code every time.",
+      "quote_es": "Recomiendo ampliamente a Álvaro para cualquier proyecto web. Aportó soluciones creativas y entregó código limpio y mantenible en todo momento.",
+      "author": "Mary Johnson",
+      "role_en": "Project Manager at Creatives",
+      "role_es": "Project Manager en Creatives"
+    }
+  ],
+
+  "filters": [
+    { "key": "all",    "label_en": "All",     "label_es": "Todos" },
+    { "key": "react",  "label_en": "React",   "label_es": "React" },
+    { "key": "nodejs", "label_en": "Node.js", "label_es": "Node.js" },
+    { "key": "mobile", "label_en": "Mobile",  "label_es": "Móvil" }
+  ]
+}
