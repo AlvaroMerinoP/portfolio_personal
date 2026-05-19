@@ -671,84 +671,88 @@ const RATE_LIMIT = 3000;
 const handleContactForm = () => {
   const form = document.getElementById('contact-form');
   const status = document.getElementById('form-status');
-  
+
   if (!form) return;
-  
+
+  const t = (key) => (window.translate ? window.translate(key) : key);
+
+  const setStatus = (msg, type) => {
+    if (!status) return;
+    status.textContent = msg;
+    status.className = `form-status ${type}`;
+  };
+
+  const setLoading = (loading) => {
+    const btn = document.getElementById('submit-btn');
+    if (!btn) return;
+    const label = btn.querySelector('.btn-label');
+    btn.disabled = loading;
+    if (label) label.textContent = loading ? t('contact.sending') : t('contact.send');
+  };
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
+    // Honeypot check
+    const honeypot = form.querySelector('input[name="_gotcha"]');
+    if (honeypot && honeypot.value) return;
+
+    // Rate limit
     const now = Date.now();
     if (now - lastSubmitTime < RATE_LIMIT) {
-      status.textContent = 'Please wait a moment before submitting again.';
-      status.className = 'form-status error';
+      setStatus(t('contact.errorRateLimit'), 'error');
       return;
     }
     lastSubmitTime = now;
-    
-    const name = sanitizeHTML(form.name.value.trim());
-    const email = sanitizeHTML(form.email.value.trim());
+
+    const name    = sanitizeHTML(form.name.value.trim());
+    const email   = sanitizeHTML(form.email.value.trim());
     const message = sanitizeHTML(form.message.value.trim());
-    
+
     if (!name || !email || !message) {
-      status.textContent = 'Please fill in all fields.';
-      status.className = 'form-status error';
+      setStatus(t('contact.errorEmpty'), 'error');
       return;
     }
-    
-    if (!/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email)) {
-      status.textContent = 'Please enter a valid email.';
-      status.className = 'form-status error';
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setStatus(t('contact.errorEmail'), 'error');
       return;
     }
-    
-    // Check if using Formspree or mailto
+
     const action = form.getAttribute('action');
-    
+
     if (action && action.includes('formspree.io')) {
-      // Formspree submission
       try {
-        status.textContent = 'Sending...';
-        status.className = 'form-status';
-        
+        setLoading(true);
+        setStatus('', '');
+
         const response = await fetch(action, {
           method: 'POST',
           body: new FormData(form),
-          headers: {
-            'Accept': 'application/json'
-          }
+          headers: { 'Accept': 'application/json' }
         });
-        
+
         if (response.ok) {
-          status.textContent = 'Message sent successfully!';
-          status.className = 'form-status success';
+          setStatus(t('contact.success'), 'success');
           form.reset();
-          
-          if (window.plausible) {
-            plausible('Form Submission', { props: { method: 'Formspree' } });
-          }
+          if (window.plausible) plausible('Form Submission', { props: { method: 'Formspree' } });
         } else {
           throw new Error('Form submission failed');
         }
-      } catch (error) {
-        status.textContent = 'Failed to send message. Please try again.';
-        status.className = 'form-status error';
+      } catch (_) {
+        setStatus(t('contact.error'), 'error');
+      } finally {
+        setLoading(false);
       }
     } else {
       // Mailto fallback
       const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-      const mailto = `mailto:alvaromerinopuerta@gmail.com?subject=${subject}&body=${body}`;
-      
-      status.textContent = 'Opening your email client...';
-      status.className = 'form-status success';
-      
+      const body    = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+      setStatus('Opening your email client…', 'success');
       setTimeout(() => {
-        window.location.href = mailto;
+        window.location.href = `mailto:alvaromerinopuerta@gmail.com?subject=${subject}&body=${body}`;
         form.reset();
-        
-        if (window.plausible) {
-          plausible('Form Submission', { props: { method: 'Mailto' } });
-        }
+        if (window.plausible) plausible('Form Submission', { props: { method: 'Mailto' } });
       }, 500);
     }
   });
@@ -847,24 +851,236 @@ const initProjectFilters = () => {
 };
 
 // ============================================
+// DATA-DRIVEN CONTENT LOADER
+// ============================================
+const loadDynamicContent = async () => {
+  try {
+    const res = await fetch('data/content.json');
+    if (!res.ok) return;
+    const content = await res.json();
+    renderFilters(content.filters);
+    renderSkills(content.skills);
+    renderTestimonials(content.testimonials);
+  } catch (e) {
+    // Fail silently – static fallback markup is acceptable
+  }
+};
+
+const renderFilters = (filters) => {
+  const container = document.getElementById('work-filters');
+  if (!container || !Array.isArray(filters)) return;
+  const lang = document.documentElement.getAttribute('data-lang') || 'en';
+  container.innerHTML = filters.map((f, i) => {
+    const label = f[`label_${lang}`] || f.label_en;
+    return `<button class="filter-btn${i === 0 ? ' active' : ''}" data-filter="${f.key}">${sanitizeHTML(label)}</button>`;
+  }).join('');
+  // Re-attach filter listeners after re-render
+  initProjectFilters();
+};
+
+const renderSkills = (skills) => {
+  const grid = document.getElementById('skills-grid');
+  if (!grid || !Array.isArray(skills)) return;
+  const lang = document.documentElement.getAttribute('data-lang') || 'en';
+  grid.innerHTML = skills.map((cat, idx) => {
+    const heading = cat[`label_${lang}`] || cat.label_en;
+    const bars = cat.items.map(item => `
+      <div class="skill-bar">
+        <div class="skill-info">
+          <span>${sanitizeHTML(item.name)}</span>
+          <span class="skill-percent">${item.level}%</span>
+        </div>
+        <div class="skill-progress" role="progressbar" aria-valuenow="${item.level}" aria-valuemin="0" aria-valuemax="100" aria-label="${sanitizeHTML(item.name)}: ${item.level}%">
+          <div class="skill-fill" data-width="${item.level}"></div>
+        </div>
+      </div>`).join('');
+    return `<div class="skill-category animate-slide-in" style="animation-delay:${idx * 0.1}s">
+      <h3>${sanitizeHTML(heading)}</h3>
+      <div class="skill-bars">${bars}</div>
+    </div>`;
+  }).join('');
+  animateSkillBars();
+};
+
+const renderTestimonials = (testimonials) => {
+  const grid = document.getElementById('testimonials-grid');
+  if (!grid || !Array.isArray(testimonials)) return;
+  const lang = document.documentElement.getAttribute('data-lang') || 'en';
+  grid.innerHTML = testimonials.map(t => {
+    const quote = t[`quote_${lang}`] || t.quote_en;
+    const role  = t[`role_${lang}`]  || t.role_en;
+    return `<blockquote class="testimonial">
+      <p>${sanitizeHTML(quote)}</p>
+      <cite>— ${sanitizeHTML(t.author)}, ${sanitizeHTML(role)}</cite>
+    </blockquote>`;
+  }).join('');
+};
+
+// Re-render dynamic sections when language changes
+document.addEventListener('langchange', () => {
+  fetch('data/content.json')
+    .then(r => r.json())
+    .then(content => {
+      renderFilters(content.filters);
+      renderSkills(content.skills);
+      renderTestimonials(content.testimonials);
+    })
+    .catch(() => {});
+});
+
+// ============================================
+// PLACEHOLDER I18N SUPPORT
+// ============================================
+const updatePlaceholders = () => {
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (window.translate) el.placeholder = window.translate(key) || el.placeholder;
+  });
+};
+
+// ============================================
+// REAL-TIME FORM VALIDATION
+// ============================================
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const showFieldError = (inputId, msgKey) => {
+  const errEl = document.getElementById(`${inputId}-error`);
+  const input = document.getElementById(inputId);
+  const msg = window.translate ? window.translate(msgKey) : '';
+  if (errEl) { errEl.textContent = msg; errEl.classList.add('visible'); }
+  if (input)  { input.setAttribute('aria-invalid', 'true'); input.classList.add('field-invalid'); }
+};
+
+const clearFieldError = (inputId) => {
+  const errEl = document.getElementById(`${inputId}-error`);
+  const input = document.getElementById(inputId);
+  if (errEl) { errEl.textContent = ''; errEl.classList.remove('visible'); }
+  if (input)  { input.removeAttribute('aria-invalid'); input.classList.remove('field-invalid'); }
+};
+
+const initRealTimeValidation = () => {
+  ['name', 'email', 'message'].forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.addEventListener('blur', () => {
+      if (!input.value.trim()) {
+        showFieldError(id, 'contact.errorEmpty');
+      } else if (id === 'email' && !EMAIL_RE.test(input.value.trim())) {
+        showFieldError(id, 'contact.errorEmail');
+      } else {
+        clearFieldError(id);
+      }
+    });
+    input.addEventListener('input', () => {
+      if (input.classList.contains('field-invalid')) clearFieldError(id);
+    });
+  });
+};
+
+// ============================================
+// NEWSLETTER FORM
+// ============================================
+const handleNewsletterForm = () => {
+  const form   = document.getElementById('newsletter-form');
+  const status = document.getElementById('newsletter-status');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Honeypot check
+    const honeypot = form.querySelector('input[name="_gotcha"]');
+    if (honeypot && honeypot.value) return;
+
+    const emailInput = document.getElementById('newsletter-email');
+    const email = emailInput ? emailInput.value.trim() : '';
+    if (!email || !EMAIL_RE.test(email)) {
+      if (status) {
+        status.textContent = window.translate ? window.translate('newsletter.errorEmail') : 'Invalid email.';
+        status.className = 'newsletter-status error';
+      }
+      return;
+    }
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
+
+    try {
+      const action = form.getAttribute('action');
+      const response = await fetch(action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        status.textContent = window.translate ? window.translate('newsletter.success') : 'Subscribed!';
+        status.className = 'newsletter-status success';
+        form.reset();
+        if (window.plausible) plausible('Newsletter Subscribe');
+      } else {
+        throw new Error('Failed');
+      }
+    } catch (_) {
+      if (status) {
+        status.textContent = window.translate ? window.translate('newsletter.error') : 'Error. Please try again.';
+        status.className = 'newsletter-status error';
+      }
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+    }
+  });
+};
+
+// ============================================
+// SERVICE WORKER REGISTRATION
+// ============================================
+const registerServiceWorker = () => {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/js/sw.js')
+        .then(reg => {
+          // Notify user when a new version is available
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
+            if (!newWorker) return;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // Optionally show a "reload for updates" banner
+                console.info('[SW] New version available – reload to update.');
+              }
+            });
+          });
+        })
+        .catch(err => console.warn('[SW] Registration failed:', err));
+    });
+  }
+};
+
+// ============================================
 // INITIALIZE ALL
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
+  // Service worker (before everything else to start pre-caching)
+  registerServiceWorker();
+
   // Accessibility first
   initAccessibility();
-  
+
+  // Dynamic content (skills, filters, testimonials)
+  loadDynamicContent();
+
   // Visual effects
   initCustomCursor();
   initParticles();
   initTypingEffect();
   initTooltips();
-  
+
   // Terminal & stats
   initTerminal();
   initInteractiveTerminal();
   animateCounters();
   animateSkillBars();
-  
+
   const aboutSection = document.getElementById('about');
   if (aboutSection) {
     const githubObserver = new IntersectionObserver((entries) => {
@@ -875,10 +1091,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, { threshold: 0.1 });
-    
     githubObserver.observe(aboutSection);
   }
-  
+
   // Scroll animations
   observeElements();
   smoothScroll();
@@ -888,8 +1103,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
   initProjectFilters();
 
-  // Añadir estas dos líneas:
+  // Forms
   handleContactForm();
+  handleNewsletterForm();
+  initRealTimeValidation();
+
+  // Easter egg
   initKonamiCode();
 });
 

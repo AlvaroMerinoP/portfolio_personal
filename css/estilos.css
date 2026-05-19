@@ -1577,6 +1577,271 @@ body.matrix-mode {
   }
 }
 
+/* ===========================================
+   ACCESSIBILITY — Visible focus styles
+   =========================================== */
+:focus-visible {
+  outline: 3px solid #00ff88;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Remove focus ring when using mouse (keep for keyboard) */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ===========================================
+   FORM — Field-level errors & honeypot
+   =========================================== */
+.form-honeypot {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+  tab-size: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.field-error {
+  display: block;
+  font-size: 0.8125rem;
+  color: #f87171;
+  margin-top: 0.375rem;
+  min-height: 1rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.field-error.visible {
+  opacity: 1;
+}
+
+.field-invalid {
+  border-color: #f87171 !important;
+}
+
+/* ===========================================
+   TESTIMONIALS
+   =========================================== */
+.testimonials-section {
+  padding: 8rem 2rem;
+  background: #050505;
+}
+
+.testimonials-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.testimonial {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.testimonial:hover {
+  border-color: var(--color-text-muted);
+  transform: translateY(-4px);
+}
+
+.testimonial p {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.testimonial cite {
+  font-size: 0.9375rem;
+  font-style: normal;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+/* ===========================================
+   NEWSLETTER
+   =========================================== */
+.newsletter {
+  max-width: 600px;
+  margin: 5rem auto 0;
+  text-align: center;
+  padding: 3rem 2rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.newsletter h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.newsletter p {
+  color: var(--color-text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.newsletter-form input {
+  flex: 1 1 200px;
+  padding: 0.875rem 1rem;
+  background: #111;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.newsletter-form input:focus-visible {
+  border-color: var(--color-text-muted);
+}
+
+.newsletter-form button {
+  padding: 0.875rem 1.75rem;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease-out), opacity 0.2s;
+}
+
+.newsletter-form button:hover {
+  transform: translateY(-2px);
+}
+
+.newsletter-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.newsletter-status {
+  margin-top: 0.75rem;
+  font-size: 0.9375rem;
+  min-height: 1.5rem;
+}
+
+.newsletter-status.success { color: #4ade80; }
+.newsletter-status.error   { color: #f87171; }
+
+/* ===========================================
+   WORK FILTERS
+   =========================================== */
+.work-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+}
+
+.filter-btn {
+  padding: 0.625rem 1.25rem;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: var(--color-text-muted);
+  color: var(--color-text);
+}
+
+.filter-btn.active {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border-color: var(--color-accent);
+}
+
+/* ===========================================
+   CONTACT CONTAINER
+   =========================================== */
+.contact-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ===========================================
+   LIGHT THEME OVERRIDES
+   =========================================== */
+[data-theme="light"] .testimonial {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="light"] .newsletter {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="light"] .newsletter-form input {
+  background: #f5f5f5;
+}
+
+[data-theme="light"] .filter-btn {
+  color: #444;
+}
+
+/* ===========================================
+   RESPONSIVE — testimonials / newsletter
+   =========================================== */
+@media (max-width: 768px) {
+  .testimonials-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    margin-top: 2rem;
+  }
+
+  .newsletter {
+    padding: 2rem 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-form input,
+  .newsletter-form button {
+    width: 100%;
+  }
+}
+
+[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #666;
+  --color-border: #e0e0e0;
+}
+
 /* Skip to Main Content */
 .skip-to-main {
   position: absolute;
@@ -1587,16 +1852,13 @@ body.matrix-mode {
   padding: 8px 16px;
   text-decoration: none;
   z-index: 10000;
+  font-weight: 500;
 }
 
-.skip-to-main:focus {
+.skip-to-main:focus,
+.skip-to-main:focus-visible {
   top: 0;
-}
-
-[data-theme="light"] {
-  --color-bg: #ffffff;
-  --color-text: #1a1a1a;
-  --color-text-muted: #666;
-  --color-border: #e0e0e0;
+  outline: 3px solid #00ff88;
+  outline-offset: 0;
 }
 
