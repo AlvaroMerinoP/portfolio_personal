@@ -811,16 +811,17 @@ const initBackToTop = () => {
 // THEME TOGGLE
 // ============================================
 const initThemeToggle = () => {
-  const currentTheme = localStorage.getItem('theme') || 'dark';
+  let currentTheme = localStorage.getItem('theme') || 'dark';
   document.documentElement.setAttribute('data-theme', currentTheme);
-  
+
   const toggle = document.getElementById('theme-toggle');
   if (!toggle) return;
-  
+
   toggle.addEventListener('click', () => {
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
+    currentTheme = newTheme;
     if (window.plausible) plausible('Theme Toggle', { props: { theme: newTheme } });
   });
 };
